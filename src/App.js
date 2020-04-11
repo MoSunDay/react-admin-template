@@ -1,17 +1,29 @@
-import React, {Component} from 'react';
-import {Button} from 'antd';
+import React, { Component } from 'react';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import { privateRoutes } from './routers'
+import FrameOut from './components/FrameOut'
 
-function App() {
-  return (
-    <div>
-      <h1>APP</h1>
-      <hr/>
-      <p>1. antd 2.antd 主题色</p>
-      <div className="App">
-          <Button type="primary">Button</Button>
-      </div>
-    </div>
-  );
+class App extends Component {
+  render () {
+    return (
+      <FrameOut>
+        <Switch>
+          {
+            privateRoutes.map(item => {
+              return (
+                <Route key={item.pathname} path={item.pathname} render={ (rootProps) => {
+                  return <item.component {...rootProps}/>
+                }} />
+              );
+            })
+          }
+
+          <Redirect from='/admin' to={privateRoutes[0].pathname} exact/>
+          <Redirect to='/404' />
+        </Switch>
+      </FrameOut>
+    );
+  }
 }
 
 export default App;

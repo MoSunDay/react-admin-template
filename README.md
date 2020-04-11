@@ -7,6 +7,7 @@ yarn add antd
 yarn add less less-loader
 yarn add react-router-dom
 yarn add axios redux react-redux
+yarn add react-loadable
 ```
 ### 目录规划
 ```

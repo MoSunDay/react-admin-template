@@ -1,10 +1,16 @@
 import { 
     Login,
-    Dashborad,
+    Dashboard,
     NotFound,
     Setting, 
     Article
 } from "../views";
+
+import {
+    HomeOutlined,
+    SettingFilled,
+    EditOutlined,
+  } from '@ant-design/icons';
 
 
 const commonRoutes = [
@@ -21,15 +27,24 @@ const commonRoutes = [
 const privateRoutes = [
     {
         pathname: '/admin/dashboard',
-        component: Dashborad,
+        component: Dashboard,
+        title: '仪表盘',
+        icon: HomeOutlined,
+        isTop: true
     },
     {
         pathname: '/admin/article',
         component: Article,
+        title: '工单管理',
+        icon: EditOutlined,
+        isTop: true
     },
     {
         pathname: '/admin/setting',
         component: Setting,
+        title: '系统设置',
+        icon: SettingFilled,
+        isTop: true
     },
 ]
 
