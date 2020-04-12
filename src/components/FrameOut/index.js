@@ -33,7 +33,7 @@ class FrameOut extends Component {
             <Menu
               onClick={this.menusHandler}
               mode="inline"
-              defaultSelectedKeys={['1']}
+              selectedKeys={[this.props.location.pathname]}
               defaultOpenKeys={['sub1']}
               style={{ height: '100%', borderRight: 0 }}
             >
