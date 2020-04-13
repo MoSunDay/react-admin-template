@@ -7,6 +7,11 @@ const Article = Loadable({
     loading: Loading,
 });
 
+const ArticleEdit = Loadable({
+    loader: () => import('./Article/Edit'),
+    loading: Loading,
+});
+
 const Dashboard = Loadable({
     loader: () => import('./Dashboard'),
     loading: Loading,
@@ -36,6 +41,7 @@ const Setting = Loadable({
 
 export {
     Article,
+    ArticleEdit,
     Dashboard,
     Login,
     NotFound,

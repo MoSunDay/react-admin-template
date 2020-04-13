@@ -3,7 +3,8 @@ import {
     Dashboard,
     NotFound,
     Setting, 
-    Article
+    Article,
+    ArticleEdit
 } from "../views";
 
 import {
@@ -37,7 +38,15 @@ const privateRoutes = [
         component: Article,
         title: '工单管理',
         icon: EditOutlined,
+        exact: true,
         isTop: true
+    },
+    {
+        pathname: '/admin/article/edit/:id',
+        component: ArticleEdit,
+        title: '工单编辑',
+        icon: EditOutlined,
+        isTop: false
     },
     {
         pathname: '/admin/setting',

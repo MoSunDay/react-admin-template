@@ -23,7 +23,7 @@ class Article extends Component {
     }
 
     editHandler = (record) => {
-        this.props.history.push(`${record.id}`)
+        this.props.history.push(`/admin/article/edit/${record.id}`);
     }
 
     delHandler = (record) => {

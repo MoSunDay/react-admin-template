@@ -11,7 +11,7 @@ class App extends Component {
           {
             privateRoutes.map(item => {
               return (
-                <Route key={item.pathname} path={item.pathname} render={ (rootProps) => {
+                <Route key={item.pathname} exact={item.exact} path={item.pathname} render={ (rootProps) => {
                   return <item.component {...rootProps}/>
                 }} />
               );
