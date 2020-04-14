@@ -4,6 +4,21 @@ import { privateRoutes } from './routers'
 import FrameOut from './components/FrameOut'
 
 class App extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.props.history.listen( (location) => {
+      const pathname = location.pathname;
+      const findOne = privateRoutes.find(item => {
+        return item.pathname === pathname;
+      });
+
+      window.document.title = findOne && findOne.title;
+
+    });
+  }
+
   render () {
     return (
       <FrameOut>

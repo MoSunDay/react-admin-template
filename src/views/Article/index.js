@@ -19,6 +19,9 @@ class Article extends Component {
             dataSource: [],
             columns: [],
             total: 100,
+            isLoading: true,
+            page: 1,
+            pageSize: 10,
         }
     }
 
@@ -39,8 +42,8 @@ class Article extends Component {
         });
     }
 
-    componentDidMount() {
-        getTopics(1, 2).then(res => {
+    getAticleTopics = (page, pageSize) => {
+        getTopics(page, pageSize).then(res => {
             // console.log("topiscs response", res);
 
             var rs = [];
@@ -56,7 +59,6 @@ class Article extends Component {
 
                 rs.push(temp);
             }
-
             var first = rs[0];
             var keys = Object.keys(first);
             var columns = keys.map(item => {
@@ -99,17 +101,29 @@ class Article extends Component {
             this.setState({ dataSource: rs, columns: columns })
         }).catch(err => {
             console.log(err);
-        })
+        }).finally(() => {
+            this.setState({isLoading: false})
+        });
+    }
+
+    changeHandler = (page, pageSize) => {
+        this.setState({page, pageSize})
+        this.getAticleTopics(page, pageSize);
+    }
+
+    componentDidMount() {
+        this.getAticleTopics(1, 10);
     }
 
     render() {
         return (
             <Card title="文章列表" extra={ <Button type="dashed">导出Excel</Button> }>
                 <Table
+                    loading={this.state.isLoading}
                     rowKey={record => record.id}
                     dataSource={this.state.dataSource}
                     columns={this.state.columns}
-                    pagination={{ current: 1, total: this.state.total, pageSize: 10 }}
+                    pagination={{ current: this.state.page, total: this.state.total, onChange: this.changeHandler }}
                 />
             </Card>
         );

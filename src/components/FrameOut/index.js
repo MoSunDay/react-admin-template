@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { Layout, Menu } from 'antd';
+import { Layout, Menu, Row, Col, Dropdown, Avatar, Badge } from 'antd';
 import { privateRoutes } from '../../routers';
 import { withRouter } from 'react-router-dom';
+import { DownOutlined } from '@ant-design/icons';
 
 const { Header, Content, Sider } = Layout;
 
@@ -12,10 +13,29 @@ const topMenus = privateRoutes.filter(item => {
 
 @withRouter
 class FrameOut extends Component {
+
   menusHandler = ({ item, key, keyPath, domEvent }) => {
     console.log(this.props)
     this.props.history.push(key);
   };
+
+
+  menus = () => {
+    return (
+      <Menu onClick={this.menusHandler}>
+        <Menu.Item key="/admin/notify">
+          <Badge dot>通知中心</Badge>
+        </Menu.Item>
+        <Menu.Item key="/admin/setting">
+          个人设置
+        </Menu.Item>
+        <Menu.Item key="/login">
+          退出
+        </Menu.Item>
+      </Menu>
+    );
+  }
+
   render() {
     return (
       <Layout style={{minHeight: '100%'}}>
@@ -26,7 +46,22 @@ class FrameOut extends Component {
             <Menu.Item key="2">nav 2</Menu.Item>
             <Menu.Item key="3">nav 3</Menu.Item>
           </Menu> */}
-          <h2 style={{color: '#fff'}}>Platform Portal</h2>
+          <Row>
+            <Col span={8}>
+              <h2 style={{color: '#fff'}}>Platform Portal</h2>
+            </Col>
+            <Col span={3} offset={13}>
+              <div style={{color: '#fff'}}>
+                <Dropdown overlay={this.menus}>
+                    <Badge count={10}>
+                      <div style={{color: '#fff'}}>
+                        <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />欢迎您, xxx! <DownOutlined />
+                      </div>
+                    </Badge>
+                </Dropdown>
+              </div>
+            </Col>
+          </Row>
         </Header>
         <Layout>
           <Sider width={200} style={{color: "#fff"}}>

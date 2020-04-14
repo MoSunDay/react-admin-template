@@ -4,7 +4,8 @@ import {
     NotFound,
     Setting, 
     Article,
-    ArticleEdit
+    ArticleEdit,
+    Notify
 } from "../views";
 
 import {
@@ -54,6 +55,13 @@ const privateRoutes = [
         title: '系统设置',
         icon: SettingFilled,
         isTop: true
+    },
+    {
+        pathname: '/admin/notify',
+        component: Notify,
+        title: '通知中心',
+        icon: SettingFilled,
+        isTop: false
     },
 ]
 

@@ -32,6 +32,11 @@ const Setting = Loadable({
     loading: Loading,
 });
 
+const Notify = Loadable({
+    loader: () => import('./Notify'),
+    loading: Loading,
+});
+
 // import Article from './Article'
 // import Dashborad from './Dashboard'
 // import Login from './Login'
@@ -45,5 +50,6 @@ export {
     Dashboard,
     Login,
     NotFound,
-    Setting
+    Setting,
+    Notify
 }
