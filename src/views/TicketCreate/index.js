@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 
-class Setting extends Component {
+class TicketCreate extends Component {
     render() {
         return (
             <div>
-                <h2>Setting</h2>
+                <h2>TicketCreate</h2>
             </div>
         );
     }
 }
 
-export default Setting;
+export default TicketCreate;

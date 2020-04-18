@@ -2,9 +2,9 @@ import {
     Login,
     Dashboard,
     NotFound,
-    Setting, 
-    Article,
-    ArticleEdit,
+    TicketCreate, 
+    Ticket,
+    TicketDetail,
     Notify
 } from "../views";
 
@@ -35,25 +35,25 @@ const privateRoutes = [
         isTop: true
     },
     {
-        pathname: '/admin/article',
-        component: Article,
+        pathname: '/admin/ticket',
+        component: Ticket,
         title: '工单管理',
-        icon: EditOutlined,
+        icon: SettingFilled,
         exact: true,
         isTop: true
     },
     {
-        pathname: '/admin/article/edit/:id',
-        component: ArticleEdit,
+        pathname: '/admin/ticket/detail/:id',
+        component: TicketDetail,
         title: '工单编辑',
-        icon: EditOutlined,
+        icon: SettingFilled,
         isTop: false
     },
     {
-        pathname: '/admin/setting',
-        component: Setting,
-        title: '系统设置',
-        icon: SettingFilled,
+        pathname: '/admin/ticket/create',
+        component: TicketCreate,
+        title: '创建工单',
+        icon: EditOutlined,
         isTop: true
     },
     {

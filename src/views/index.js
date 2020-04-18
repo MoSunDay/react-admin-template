@@ -2,13 +2,13 @@ import Loadable from 'react-loadable';
 import Loading from '../components/Loading';
 
 
-const Article = Loadable({
-    loader: () => import('./Article'),
+const Ticket = Loadable({
+    loader: () => import('./Ticket'),
     loading: Loading,
 });
 
-const ArticleEdit = Loadable({
-    loader: () => import('./Article/Edit'),
+const TicketDetail = Loadable({
+    loader: () => import('./Ticket/Detail'),
     loading: Loading,
 });
 
@@ -27,8 +27,8 @@ const NotFound = Loadable({
     loading: Loading,
 });
 
-const Setting = Loadable({
-    loader: () => import('./Setting'),
+const TicketCreate = Loadable({
+    loader: () => import('./TicketCreate'),
     loading: Loading,
 });
 
@@ -37,7 +37,7 @@ const Notify = Loadable({
     loading: Loading,
 });
 
-// import Article from './Article'
+// import Ticket from './Ticket'
 // import Dashborad from './Dashboard'
 // import Login from './Login'
 // import NotFound from './NotFound'
@@ -45,11 +45,11 @@ const Notify = Loadable({
 
 
 export {
-    Article,
-    ArticleEdit,
+    Ticket,
+    TicketDetail,
     Dashboard,
     Login,
     NotFound,
-    Setting,
+    TicketCreate,
     Notify
 }

@@ -26,12 +26,6 @@ class FrameOut extends Component {
         <Menu.Item key="/admin/notify">
           <Badge dot>通知中心</Badge>
         </Menu.Item>
-        <Menu.Item key="/admin/setting">
-          个人设置
-        </Menu.Item>
-        <Menu.Item key="/login">
-          退出
-        </Menu.Item>
       </Menu>
     );
   }

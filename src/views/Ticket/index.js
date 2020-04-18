@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Button, Table, Tooltip, Tag, Modal } from 'antd';
+import { Card, Button, Table, Tooltip, Tag } from 'antd';
 import ButtonGroup from "antd/es/button/button-group";
 import { getTopics }  from '../../api';
 
@@ -11,7 +11,7 @@ const mapFiledToChinese = {
     author: '作者'
 }
 
-class Article extends Component {
+class Ticket extends Component {
 
     constructor(props) {
         super(props)
@@ -25,22 +25,10 @@ class Article extends Component {
         }
     }
 
-    editHandler = (record) => {
-        this.props.history.push(`/admin/article/edit/${record.id}`);
+    detailHandler = (record) => {
+        this.props.history.push(`/admin/ticket/detail/${record.id}`);
     }
 
-    delHandler = (record) => {
-        Modal.confirm({
-            title: '标题',
-            content: `删除 [${record.title}]？`,
-            onCancel: () => {
-                console.log('用户取消了');
-            },
-            onOk: () => {
-                console.log('用户确认了');
-            }
-        });
-    }
 
     getAticleTopics = (page, pageSize) => {
         getTopics(page, pageSize).then(res => {
@@ -91,8 +79,8 @@ class Article extends Component {
                 render: (text, record, index) => {
                     return (
                         <ButtonGroup>
-                            <Button size='small' type='primary' onClick={this.editHandler.bind(this, record)}>修改</Button>
-                            <Button size='small' type='danger' onClick={this.delHandler.bind(this, record)}>删除</Button>
+                            <Button size='small' type='primary' onClick={this.detailHandler.bind(this, record)}>查看</Button>
+                            {/* <Button size='small' type='danger' onClick={this.delHandler.bind(this, record)}>删除</Button> */}
                         </ButtonGroup>
                     )
                 }
@@ -117,7 +105,7 @@ class Article extends Component {
 
     render() {
         return (
-            <Card title="文章列表" extra={ <Button type="dashed">导出Excel</Button> }>
+            <Card title="工单列表" extra={ <Button type="dashed">导出Excel</Button> }>
                 <Table
                     loading={this.state.isLoading}
                     rowKey={record => record.id}
@@ -130,4 +118,4 @@ class Article extends Component {
     }
 }
 
-export default Article;
+export default Ticket;
