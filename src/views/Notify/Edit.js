@@ -33,7 +33,7 @@ const Editor = ({ onChange, onSubmit, submitting, value }) => (
 );
 
 @withRouter
-class TicketEdit extends Component {
+class NotifyEdit extends Component {
     state = {
         comments: [],
         submitting: false,
@@ -160,34 +160,6 @@ class TicketEdit extends Component {
                             </Form.Item>
                             <Button type="primary" htmlType="submit">改变状态</Button>
                         </Form>
-                        <br/>
-                        <List
-                            dataSource={this.state.ticket}
-                            bordered
-                            renderItem={item => (
-                                <List.Item>
-                                    <Typography.Text mark></Typography.Text> {item}
-                                </List.Item>
-                            )}
-                        />
-
-                        {comments.length > 0 && <CommentList comments={comments} />}
-                        <Comment
-                            avatar={
-                                <Avatar
-                                src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                                alt="Han Solo"
-                                />
-                            }
-                            content={
-                                <Editor
-                                    onChange={this.handleChange}
-                                    onSubmit={this.handleSubmit}
-                                    submitting={submitting}
-                                    value={value}
-                                />
-                            }
-                        />
                     </Col>
                 </Card>
             </div>
@@ -195,4 +167,4 @@ class TicketEdit extends Component {
     };
 }
 
-export default TicketEdit;
+export default NotifyEdit;

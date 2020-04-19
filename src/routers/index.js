@@ -5,7 +5,8 @@ import {
     TicketCreate, 
     Ticket,
     TicketDetail,
-    Notify
+    Notify,
+    NotifyEdit
 } from "../views";
 
 import {
@@ -59,6 +60,13 @@ const privateRoutes = [
     {
         pathname: '/admin/notify',
         component: Notify,
+        title: '通知中心',
+        icon: SettingFilled,
+        isTop: false
+    },
+    {
+        pathname: '/admin/notify/edit/:id',
+        component: NotifyEdit,
         title: '通知中心',
         icon: SettingFilled,
         isTop: false

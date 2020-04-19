@@ -1,15 +1,8 @@
 import axios from 'axios'
 import { message } from 'antd';
+import { baseURL }  from '../utils';
 
-
-const isDev = process.env.NODE_ENV === 'development';
-
-const service = axios.create(
-  {
-    baseURL: isDev ? 'https://cnodejs.org/api/v1' : 'https://cnodejs.org/api.v1',
-
-  }
-)
+const service = axios.create({baseURL})
 
 service.interceptors.request.use((config) => {
   console.log("axios request: ", config);
@@ -27,9 +20,28 @@ service.interceptors.response.use((response) => {
 
 
 const getTopics = (page = 1, limit = 5) => {
-  return service.get(`/topics?page=${page}&limit=${limit}`);
+  const data = service.get(`/iam/ticket/all/list`)
+  return data;
+}
+
+const getTicket = (id) => {
+  const data = service.get(`/iam/ticket/${id}`)
+  return data
+}
+
+const getTicketApprove = () => {
+  console.log("##########33", baseURL)
+  return service.get(`/iam/ticket/approve/list`)
+}
+
+const postTicketStatus = (id, post_data) => {
+  let data = {"status": post_data.status} 
+  return service.post(`/iam/ticket/modfiy/status/${id}`, data)
 }
 
 export {
-  getTopics
+  getTopics,
+  getTicket,
+  postTicketStatus,
+  getTicketApprove
 }

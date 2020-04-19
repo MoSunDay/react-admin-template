@@ -2,14 +2,7 @@ import React, { Component } from 'react';
 import { Card, Button, Table, Tooltip, Tag } from 'antd';
 import ButtonGroup from "antd/es/button/button-group";
 import { getTopics }  from '../../api';
-
-const mapFiledToChinese = {
-    id: '序号',
-    title: '标题',
-    visit_count: '阅读量',
-    create_at: '发布时间',
-    author: '作者'
-}
+import { mapFiledToChinese }  from '../../utils';
 
 class Ticket extends Component {
 
@@ -29,36 +22,48 @@ class Ticket extends Component {
         this.props.history.push(`/admin/ticket/detail/${record.id}`);
     }
 
-
     getAticleTopics = (page, pageSize) => {
         getTopics(page, pageSize).then(res => {
-            // console.log("topiscs response", res);
-
             var rs = [];
-            for (let i = 0, length = res.data.length; i < length; i++ ) {
-
+            for (let i = 0, length = res.message.length; i < length; i++ ) {
                 var temp = {
-                    id: res.data[i]['id'],
-                    title: res.data[i]['title'],
-                    visit_count: res.data[i]['visit_count'],
-                    create_at: res.data[i]['create_at'],
-                    author: res.data[i]['author']['loginname'],
+                    id: res.message[i]['id'],
+                    title: res.message[i]['title'],
+                    type: res.message[i]['type'],
+                    approve: res.message[i]['approve'].toString(),
+                    status: res.message[i]["status"],
+                    user: res.message[i]['user'],
+                    create_time: res.message[i]['create_time'],
                 }
-
                 rs.push(temp);
             }
+
             var first = rs[0];
             var keys = Object.keys(first);
             var columns = keys.map(item => {
-                if (item === 'visit_count') {
+                if (item === 'status') {
                     return {
                         title: mapFiledToChinese[item],
                         dataIndex: item,
                         key: item,
                         render: (text, record, index) => {
                             return (
-                                <Tooltip title={record.visit_count >= 1000 ? '阅读数超过一千' : '阅读数少于一千'}>
-                                    <Tag color={record.visit_count >= 1000 ? 'red' : 'green' }>{record.visit_count}</Tag>
+                                <Tooltip title={record.status === "沉睡中" ? '要加油了呢' : '这个状态还可以'}>
+                                    <Tag color={record.status === "沉睡中" ? 'red' : 'green' }>{record.status}</Tag>
+                                </Tooltip>
+                            );
+                        }
+                    };
+                }
+                if (item === "approve") {
+                    return {
+                        title: mapFiledToChinese[item],
+                        dataIndex: item,
+                        key: item,
+                        render: (text, record, index) => {
+                            return (
+                                <Tooltip title={record.approve === "false" ? '等待审批中' : '审批已通过'}>
+                                    <Tag color={record.approve === "false" ? 'red' : 'green' }>{record.approve}</Tag>
                                 </Tooltip>
                             );
                         }

@@ -37,6 +37,11 @@ const Notify = Loadable({
     loading: Loading,
 });
 
+const NotifyEdit = Loadable({
+    loader: () => import('./Notify/Edit'),
+    loading: Loading,
+});
+
 // import Ticket from './Ticket'
 // import Dashborad from './Dashboard'
 // import Login from './Login'
@@ -51,5 +56,6 @@ export {
     Login,
     NotFound,
     TicketCreate,
-    Notify
+    Notify,
+    NotifyEdit,
 }
