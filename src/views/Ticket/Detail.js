@@ -1,25 +1,9 @@
 import React, {Component} from 'react';
-import { Form, Input, Button, Card, Row, Col, Modal, Comment, List, Avatar } from 'antd';
+import { Form, Input, Button, Card, Row, Col, Modal, Comment, List, Avatar, Select } from 'antd';
 import moment from 'moment';
 import ButtonGroup from "antd/es/button/button-group";
 
-const layout = {
-    labelCol: {
-        span: 8,
-    },
-    wrapperCol: {
-        span: 8,
-    },
-};
-
-const tailLayout = {
-    wrapperCol: {
-        offset: 8,
-        span: 8,
-    },
-};
-
-
+const { Option } = Select;
 const { TextArea } = Input;
 
 const CommentList = ({ comments }) => (
@@ -118,79 +102,42 @@ class TicketEdit extends Component {
     render() {
         const { comments, submitting, value } = this.state;
         return (
-            <Row>
-                <Col span={16} offset={4}>
-                    <Card title="工单详情" extra={ this.TicketButtonGroup() }>
-                        <Form
-                        {...layout}
-                        name="basic"
-                        initialValues={{
-                            remember: true,
-                        }}
-                        onFinish={this.onFinish}
-                        onFinishFailed={this.onFinishFailed}
-                        >
-                        <Form.Item
-                            label="Username"
-                            name="username"
-                            rules={[
-                            {
-                                required: true,
-                                message: 'Please input your username!',
-                            },
-                            ]}
-                        >
-                            <Input />
+            <div>
+                <Card title="工单详情" extra={ this.TicketButtonGroup() }>
+                    <Col span={16} offset={4}>
+                        <Form.Item name="tikcetStatus" label="工单状态">
+                            <Select defaultValue={<b style={{ color: 'red' }}>沉睡中</b>} style={{ width: 120 }} bordered={false}>
+                                <Option value="done" style={{ color: 'green' }}>
+                                    <b style={{ color: 'green' }}>已完成</b>
+                                </Option>
+                                <Option value="in-progress" style={{ color: '#08c' }}>
+                                    <b style={{ color: '#08c' }}>进行中</b>
+                                </Option>
+                                <Option value="idle" style={{ color: 'red' }}>
+                                    <b style={{ color: 'red' }}>沉睡中</b>
+                                </Option>
+                            </Select>
                         </Form.Item>
-                    
-                        <Form.Item
-                            label="Password"
-                            name="password"
-                            rules={[
-                            {
-                                required: true,
-                                message: 'Please input your password!',
-                            },
-                            ]}
-                        >
-                            <Input.Password />
-                        </Form.Item>
-                    
-                        {/* <Form.Item {...tailLayout}>
-                            <Space size={50}>
-                                <Button type="primary" htmlType="submit">
-                                    提交
-                                </Button>
-                                <Button htmlType="button" onClick={this.props.history.goBack}>
-                                    返回
-                                </Button>
-                            </Space>
-                        </Form.Item> */}
-                        </Form>
-                    </Card>
-                </Col>
-                <hr/>
-                
-                <Col span={16} offset={4}>
-                    {comments.length > 0 && <CommentList comments={comments} />}
-                    <Comment
-                        avatar={
-                            <Avatar
-                            src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                            alt="Han Solo"
-                            />
-                        }
-                        content={
-                            <Editor
-                                onChange={this.handleChange}
-                                onSubmit={this.handleSubmit}
-                                submitting={submitting}
-                                value={value}
-                            />
-                        }
-                    />
-                </Col>
-            </Row>
+                        {comments.length > 0 && <CommentList comments={comments} />}
+                        <Comment
+                            avatar={
+                                <Avatar
+                                src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+                                alt="Han Solo"
+                                />
+                            }
+                            content={
+                                <Editor
+                                    onChange={this.handleChange}
+                                    onSubmit={this.handleSubmit}
+                                    submitting={submitting}
+                                    value={value}
+                                />
+                            }
+                        />
+                    </Col>
+                </Card>
+            </div>
           );
     };
 }

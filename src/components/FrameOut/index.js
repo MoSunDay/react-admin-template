@@ -47,11 +47,11 @@ class FrameOut extends Component {
             <Col span={3} offset={13}>
               <div style={{color: '#fff'}}>
                 <Dropdown overlay={this.menus}>
-                    <Badge count={10}>
+                    {/* <Badge count={10}> */}
                       <div style={{color: '#fff'}}>
                         <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />欢迎您, xxx! <DownOutlined />
                       </div>
-                    </Badge>
+                    {/* </Badge> */}
                 </Dropdown>
               </div>
             </Col>

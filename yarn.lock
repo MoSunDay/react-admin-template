@@ -1868,10 +1868,10 @@ ansi-styles@^4.1.0:
     "@types/color-name" "^1.1.1"
     color-convert "^2.0.1"
 
-antd@^4.1.1:
-  version "4.1.1"
-  resolved "https://registry.npm.taobao.org/antd/download/antd-4.1.1.tgz?cache=0&sync_timestamp=1586088717187&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fantd%2Fdownload%2Fantd-4.1.1.tgz#916c3d05a0461a3cbbf4f20e7dd15b4de448cc90"
-  integrity sha1-kWw9BaBGGjy79PIOfdFbTeRIzJA=
+antd@^4.1.3:
+  version "4.1.3"
+  resolved "https://registry.npm.taobao.org/antd/download/antd-4.1.3.tgz?cache=0&sync_timestamp=1586784132541&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fantd%2Fdownload%2Fantd-4.1.3.tgz#c5fd6e4eb3d335c4bb27d903ee2306b9cbeb28ef"
+  integrity sha1-xf1uTrPTNcS7J9kD7iMGucvrKO8=
   dependencies:
     "@ant-design/icons" "^4.0.0"
     "@ant-design/react-slick" "~0.25.5"
@@ -1893,7 +1893,7 @@ antd@^4.1.1:
     rc-dropdown "~3.0.0"
     rc-field-form "~1.1.0"
     rc-input-number "~4.5.4"
-    rc-mentions "~1.0.0"
+    rc-mentions "~1.1.0"
     rc-menu "~8.0.1"
     rc-notification "~4.0.0"
     rc-pagination "~2.2.0"
@@ -1901,7 +1901,7 @@ antd@^4.1.1:
     rc-progress "~2.5.0"
     rc-rate "~2.5.1"
     rc-resize-observer "^0.2.0"
-    rc-select "~10.1.0"
+    rc-select "~10.2.0"
     rc-slider "~9.2.3"
     rc-steps "~3.5.0"
     rc-switch "~1.9.0"
@@ -8806,10 +8806,10 @@ rc-input-number@~4.5.4:
     rc-util "^4.5.1"
     rmc-feedback "^2.0.0"
 
-rc-mentions@~1.0.0:
-  version "1.0.1"
-  resolved "https://registry.npm.taobao.org/rc-mentions/download/rc-mentions-1.0.1.tgz#4a82b5011ccd3f0008f69f3b2e29ab8c0d91b17f"
-  integrity sha1-SoK1ARzNPwAI9p87LimrjA2RsX8=
+rc-mentions@~1.1.0:
+  version "1.1.0"
+  resolved "https://registry.npm.taobao.org/rc-mentions/download/rc-mentions-1.1.0.tgz?cache=0&sync_timestamp=1586404563545&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Frc-mentions%2Fdownload%2Frc-mentions-1.1.0.tgz#fa4994b94eee03e5254a0a600839ed19e1f9f0e9"
+  integrity sha1-+kmUuU7uA+UlSgpgCDntGeH58Ok=
   dependencies:
     classnames "^2.2.6"
     rc-menu "^8.0.1"
@@ -8884,10 +8884,22 @@ rc-resize-observer@^0.2.0:
     rc-util "^4.14.0"
     resize-observer-polyfill "^1.5.1"
 
-rc-select@^10.1.0, rc-select@~10.1.0:
+rc-select@^10.1.0:
   version "10.1.8"
   resolved "https://registry.npm.taobao.org/rc-select/download/rc-select-10.1.8.tgz#cb6f95a87e42ab4d32006eb96d44fd3adfa08147"
   integrity sha1-y2+VqH5Cq00yAG65bUT9Ot+ggUc=
+  dependencies:
+    classnames "2.x"
+    rc-animate "^2.10.0"
+    rc-trigger "^4.0.0"
+    rc-util "^4.20.0"
+    rc-virtual-list "^1.1.2"
+    warning "^4.0.3"
+
+rc-select@~10.2.0:
+  version "10.2.2"
+  resolved "https://registry.npm.taobao.org/rc-select/download/rc-select-10.2.2.tgz?cache=0&sync_timestamp=1587048065639&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Frc-select%2Fdownload%2Frc-select-10.2.2.tgz#3b882031825e68f728a16f0f593ce1e64eada263"
+  integrity sha1-O4ggMYJeaPcooW8PWTzh5k6tomM=
   dependencies:
     classnames "2.x"
     rc-animate "^2.10.0"

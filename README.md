@@ -16,7 +16,7 @@ src
         1. login
         2. admin
             - dashboard
-            - aticle
+            - ticket
             - setting
         3. NotFound
     2. components
