@@ -25,7 +25,7 @@ const Demo = () => {
 
   return (
     <Form {...layout} form={form} name="control-hooks" onFinish={onFinish}>
-      <Form.Item name="tikectType" label="Ticket Type" rules={[{ required: true }]}>
+      <Form.Item name="tikectType" label="工单类型" rules={[{ required: true }]}>
         <TreeSelect
             showSearch
             style={{ width: '100%' }}
