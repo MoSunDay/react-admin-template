@@ -85,7 +85,6 @@ class Ticket extends Component {
                     return (
                         <ButtonGroup>
                             <Button size='small' type='primary' onClick={this.detailHandler.bind(this, record)}>查看</Button>
-                            {/* <Button size='small' type='danger' onClick={this.delHandler.bind(this, record)}>删除</Button> */}
                         </ButtonGroup>
                     )
                 }

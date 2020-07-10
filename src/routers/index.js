@@ -33,7 +33,8 @@ const privateRoutes = [
         component: Dashboard,
         title: '仪表盘',
         icon: HomeOutlined,
-        isTop: true
+        isTop: true,
+        family: "system"
     },
     {
         pathname: '/admin/ticket',
@@ -41,35 +42,40 @@ const privateRoutes = [
         title: '工单管理',
         icon: SettingFilled,
         exact: true,
-        isTop: true
+        isTop: true,
+        family: "ticket"
     },
     {
         pathname: '/admin/ticket/detail/:id',
         component: TicketDetail,
         title: '工单编辑',
         icon: SettingFilled,
-        isTop: false
+        isTop: false,
+        family: "ticket"
     },
     {
         pathname: '/admin/ticket/create',
         component: TicketCreate,
         title: '创建工单',
         icon: EditOutlined,
-        isTop: true
+        isTop: true,
+        family: "ticket"
     },
     {
         pathname: '/admin/notify',
         component: Notify,
         title: '通知中心',
         icon: SettingFilled,
-        isTop: false
+        isTop: true,
+        family: "system"
     },
     {
         pathname: '/admin/notify/edit/:id',
         component: NotifyEdit,
         title: '通知中心',
         icon: SettingFilled,
-        isTop: false
+        isTop: false,
+        family: "system"
     },
 ]
 
