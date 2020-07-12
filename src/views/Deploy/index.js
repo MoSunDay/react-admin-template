@@ -1,183 +1,157 @@
 import React, { Component } from 'react';
-import { Card, Button, Table, Tooltip, Tag, Select } from 'antd';
-import ButtonGroup from "antd/es/button/button-group";
-import { getTopics }  from '../../api';
-import { mapFiledToChinese }  from '../../utils';
+import { Table, Space, Divider } from 'antd';
+import { Form, Button, TreeSelect, Card } from 'antd';
 
-import { Form, Input } from 'antd';
+
+const { TreeNode } = TreeSelect;
 
 const layout = {
   labelCol: { span: 0 },
-  wrapperCol: { span: 8 },
-};
-
-const tailLayout = {
   wrapperCol: { offset: 0, span: 8 },
 };
 
-const onFinish = values => {
-    console.log('Success:', values);
-  };
-
-const onFinishFailed = errorInfo => {
-    console.log('Failed:', errorInfo);
-};
-
-
-const { Option } = Select;
 
 class Deploy extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            dataSource: [],
-            columns: [],
-            total: 100,
-            isLoading: true,
-            page: 1,
-            pageSize: 10,
+            serviceDTcolumns: [
+                {
+                    title: '关联域名',
+                    dataIndex: 'host',
+                    key: 'host',
+                },
+                {
+                    title: '修改与查看',
+                    key: 'modfiy',
+                    render: () => (
+                      <Space>
+                          <Button type="primary" size="small" onClick={this.viewHandler.bind(this, "service-status")}>服务状态</Button>
+                          <Button type="primary" size="small" onClick={this.viewHandler.bind(this, "release-log")}>发布记录</Button>
+                          <Button type="primary" size="small" onClick={this.viewHandler.bind(this, "service-weight")}>权重</Button>
+                          <Button type="primary" size="small" onClick={this.viewHandler.bind(this, "common-conf")}>公共配置</Button>
+                      </Space>
+                    ),
+                },
+            ],
+            serviceDVcolumns: [
+                {
+                  title: '服务描述版本',
+                  dataIndex: 'service_describle_version',
+                  key: 'service_describle_version',
+                },
+                {
+                  title: '权重',
+                  dataIndex: 'weight',
+                  key: 'weight',
+                },
+                {
+                  title: '状态',
+                  dataIndex: 'status',
+                  key: 'status',
+                },
+                {
+                  title: '修改与查看',
+                  key: 'modfiy',
+                  render: () => (
+                    <Space>
+                        <Button type="primary" size="small" onClick={this.viewHandler.bind(this, "release")}>发布服务</Button>
+                        <Button type="primary" size="small" onClick={this.viewHandler.bind(this, "modfiy-instance")}>实例数</Button>
+                        <Button type="primary" size="small" onClick={this.viewHandler.bind(this, "deploy-config")}>部署配置</Button>
+                    </Space>
+                  ),
+                },
+            ],
+            serviceData: [
+                {
+                    service_describle_version: "em-feed-server:1",
+                    weight: 100,
+                    status: 'running',
+                    host: 'sre.mobiu.space',
+                    create_time: '2020-02-02'
+                },
+            ]
         }
     }
 
-    detailHandler = (record) => {
-        this.props.history.push(`/admin/ticket/detail/${record.id}`);
+    getServiceDataSource = (service) => {
+        if (service === undefined || service === "") {
+            return [];
+        }
+        this.state.serviceData[0]["service_describle_version"] = "em-feed-server:2";
+        return this.state.serviceData
     }
 
-    getAticleTopics = (page, pageSize) => {
-        getTopics(page, pageSize).then(res => {
-            var rs = [];
-            for (let i = 0, length = res.message.length; i < length; i++ ) {
-                var temp = {
-                    id: res.message[i]['id'],
-                    title: res.message[i]['title'],
-                    type: res.message[i]['type'],
-                    approve: res.message[i]['approve'].toString(),
-                    status: res.message[i]["status"],
-                    user: res.message[i]['user'],
-                    create_time: res.message[i]['create_time'],
-                }
-                rs.push(temp);
-            }
-
-            var first = rs[0];
-            var keys = Object.keys(first);
-            var columns = keys.map(item => {
-                if (item === 'status') {
-                    return {
-                        title: mapFiledToChinese[item],
-                        dataIndex: item,
-                        key: item,
-                        render: (text, record, index) => {
-                            return (
-                                <Tooltip title={record.status === "沉睡中" ? '要加油了呢' : '这个状态还可以'}>
-                                    <Tag color={record.status === "沉睡中" ? 'red' : 'green' }>{record.status}</Tag>
-                                </Tooltip>
-                            );
-                        }
-                    };
-                }
-                if (item === "approve") {
-                    return {
-                        title: mapFiledToChinese[item],
-                        dataIndex: item,
-                        key: item,
-                        render: (text, record, index) => {
-                            return (
-                                <Tooltip title={record.approve === "false" ? '等待审批中' : '审批已通过'}>
-                                    <Tag color={record.approve === "false" ? 'red' : 'green' }>{record.approve}</Tag>
-                                </Tooltip>
-                            );
-                        }
-                    };
-                } else {
-                    return {
-                        title: mapFiledToChinese[item],
-                        dataIndex: item,
-                        key: item,
-                    };
-                }
-            });
-
-            columns.push({
-                title: '操作',
-                dataIndex: 'action',
-                key: 'action',
-                render: (text, record, index) => {
-                    return (
-                        <ButtonGroup>
-                            <Button size='small' type='primary' onClick={this.detailHandler.bind(this, record)}>查看</Button>
-                        </ButtonGroup>
-                    )
-                }
-            });
-
-            this.setState({ dataSource: rs, columns: columns })
-        }).catch(err => {
-            console.log(err);
-        }).finally(() => {
-            this.setState({isLoading: false})
-        });
+    viewHandler = (resource) => {
+        this.props.history.push(`/admin/deploy/${resource}`);
     }
 
-    changeHandler = (page, pageSize) => {
-        this.setState({page, pageSize})
-        this.getAticleTopics(page, pageSize);
-    }
-
-    componentDidMount() {
-        this.getAticleTopics(1, 10);
-    }
-
-    serviceOnChange = (value) => {
-        console.log(`selected ${value}`)
+    onSelectChange = (value) => {
+        var storage = window.localStorage;
+        storage["serviceName"] = value;
+        console.log(`onSelectChange: ${value}`)
     }
 
     render() {
-        return (
-            <Card title="服务列表">
-                <Form
-                    {...layout}
-                    name="basic"
-                    initialValues={{ remember: true }}
-                    onFinish={onFinish}
-                    onFinishFailed={onFinishFailed}
-                    layout="inline"
-                >      
-                <Form.Item
-                    label="服务名"
-                    name="服务名"
-                    rules={[{ required: true, message: 'Please input your username!' }]}
+        var storage = window.localStorage;
+        let treeSelect = null;
+        if (storage["serviceName"]) {
+            console.log("in cache")
+            treeSelect = <TreeSelect
+                showSearch
+                style={{ width: '100%' }}
+                dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                placeholder="Please select"
+                defaultValue="em-feed-server"
+                onChange={this.onSelectChange}
+                allowClear
+                treeDefaultExpandAll
                 >
-                    <Select
-                        showSearch
-                        style={{ width: 200 }}
-                        placeholder="选择服务"
-                        optionFilterProp="children"
-                        onChange={this.serviceOnChange}
-                        filterOption={(input, option) =>
-                        option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}>
-                            <Option value="jack">Jack</Option>
-                            <Option value="lucy">Lucy</Option>
-                            <Option value="tom">Tom</Option>
-                    </Select>
-                </Form.Item>
+                    <TreeNode value="em-feed-server" key="em-feed-server" title={<b style={{ color: '#08c' }}>em-feed-server</b>}></TreeNode>
+                </TreeSelect>
+        } else {
+            treeSelect = <TreeSelect
+                showSearch
+                style={{ width: '100%' }}
+                dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                placeholder="Please select"
+                onChange={this.onSelectChange}
+                defaultValue="em-feed-server"
+                allowClear
+                treeDefaultExpandAll
+                >
+                    <TreeNode value="em-feed-server" title={<b style={{ color: '#08c' }}>em-feed-server</b>}></TreeNode>
+                </TreeSelect>
+        }
 
-                <Form.Item {...tailLayout}>
-                    <Button type="primary" htmlType="submit">
-                    Submit
-                    </Button>
+        return (
+            <div>
+              <Card title="服务控制台">
+              <Form {...layout} name="control-hooks">
+                <Form.Item name="serviceName" label="选择服务" rules={[{ required: true }]}>
+                    {treeSelect}
                 </Form.Item>
-              </Form>
-   
-                <Table
-                    loading={this.state.isLoading}
-                    rowKey={record => record.id}
-                    dataSource={this.state.dataSource}
-                    columns={this.state.columns}
-                    pagination={{ current: this.state.page, total: this.state.total, onChange: this.changeHandler }}
-                />
-            </Card>
+                <Divider />
+                <Form.Item
+                    noStyle
+                    shouldUpdate={(prevValues, currentValues) => prevValues.serviceName !== currentValues.serviceName}
+                >
+                {({ getFieldValue }) => {
+                        let serviceName = getFieldValue('serviceName');
+                        return (
+                            <div>
+                                <Table columns={this.state.serviceDTcolumns} dataSource={this.getServiceDataSource(serviceName)} title={() => '公共配置详情'} pagination={false}/>
+                                <Divider />
+                                <Table columns={this.state.serviceDVcolumns} dataSource={this.getServiceDataSource(serviceName)} title={() => '服务部署信息'} pagination={false}/>
+                            </div>
+                        );
+                    }
+                }
+                </Form.Item>
+                </Form>
+              </Card>
+            </div>
         );
     }
 }

@@ -47,6 +47,42 @@ const Deploy = Loadable({
     loading: Loading,
 });
 
+const DeployCommonConf = Loadable({
+    loader: () => import('./DeployCommonConf'),
+    loading: Loading,
+});
+
+const DeployWeight = Loadable({
+    loader: () => import('./DeployWeight'),
+    loading: Loading,
+});
+
+const DeployReleaseLog = Loadable({
+    loader: () => import('./DeployReleaseLog'),
+    loading: Loading,
+});
+
+const DeployServiceStatus = Loadable({
+    loader: () => import('./DeployServiceStatus'),
+    loading: Loading,
+});
+
+const DeployRelease = Loadable({
+    loader: () => import('./DeployRelease'),
+    loading: Loading,
+});
+
+const DeployModfiyInstance = Loadable({
+    loader: () => import('./DeployModfiyInstance'),
+    loading: Loading,
+});
+
+const DeployConfig = Loadable({
+    loader: () => import('./DeployConfig'),
+    loading: Loading,
+});
+
+
 // import Ticket from './Ticket'
 // import Dashborad from './Dashboard'
 // import Login from './Login'
@@ -63,5 +99,12 @@ export {
     TicketCreate,
     Notify,
     NotifyEdit,
-    Deploy
+    Deploy,
+    DeployCommonConf,
+    DeployWeight,
+    DeployReleaseLog,
+    DeployServiceStatus,
+    DeployRelease,
+    DeployModfiyInstance,
+    DeployConfig
 }

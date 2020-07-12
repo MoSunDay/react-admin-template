@@ -7,7 +7,14 @@ import {
     TicketDetail,
     Notify,
     NotifyEdit,
-    Deploy
+    Deploy,
+    DeployCommonConf,
+    DeployWeight,
+    DeployReleaseLog,
+    DeployServiceStatus,
+    DeployRelease,
+    DeployModfiyInstance,
+    DeployConfig
 } from "../views";
 
 import {
@@ -31,20 +38,84 @@ const commonRoutes = [
 
 const privateRoutes = [
     {
-        pathname: '/admin/deploy',
-        component: Deploy,
-        title: '控制台',
-        icon: RightSquareOutlined,
-        isTop: true,
-        family: "deploy"
-    },
-    {
         pathname: '/admin/dashboard',
         component: Dashboard,
         title: '仪表盘',
         icon: HomeOutlined,
         isTop: true,
         family: "system"
+    },
+    {
+        pathname: '/admin/deploy',
+        component: Deploy,
+        title: '控制台',
+        icon: RightSquareOutlined,
+        isTop: true,
+        exact: true,
+        family: "deploy"
+    },
+    {
+        pathname: '/admin/deploy/common-conf',
+        component: DeployCommonConf,
+        title: '公共配置',
+        icon: RightSquareOutlined,
+        isTop: false,
+        exact: true,
+        family: "deploy"
+    },
+    {
+        pathname: '/admin/deploy/service-weight',
+        component: DeployWeight,
+        title: '权重',
+        icon: RightSquareOutlined,
+        isTop: false,
+        exact: true,
+        family: "deploy"
+    },
+    {
+        pathname: '/admin/deploy/release-log',
+        component: DeployReleaseLog,
+        title: '发布记录',
+        icon: RightSquareOutlined,
+        isTop: false,
+        exact: true,
+        family: "deploy"
+    },
+    {
+        pathname: '/admin/deploy/service-status',
+        component: DeployServiceStatus,
+        title: '服务状态',
+        icon: RightSquareOutlined,
+        isTop: false,
+        exact: true,
+        family: "deploy"
+    },
+    {
+        pathname: '/admin/deploy/release',
+        component: DeployRelease,
+        title: '发布服务',
+        icon: RightSquareOutlined,
+        isTop: false,
+        exact: true,
+        family: "deploy"
+    },
+    {
+        pathname: '/admin/deploy/modfiy-instance',
+        component: DeployModfiyInstance,
+        title: '实例数',
+        icon: RightSquareOutlined,
+        isTop: false,
+        exact: true,
+        family: "deploy"
+    },
+    {
+        pathname: '/admin/deploy/deploy-config',
+        component: DeployConfig,
+        title: '服务配置',
+        icon: RightSquareOutlined,
+        isTop: false,
+        exact: true,
+        family: "deploy"
     },
     {
         pathname: '/admin/ticket',
