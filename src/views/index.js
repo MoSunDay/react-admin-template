@@ -42,6 +42,11 @@ const NotifyEdit = Loadable({
     loading: Loading,
 });
 
+const Deploy = Loadable({
+    loader: () => import('./Deploy'),
+    loading: Loading,
+});
+
 // import Ticket from './Ticket'
 // import Dashborad from './Dashboard'
 // import Login from './Login'
@@ -58,4 +63,5 @@ export {
     TicketCreate,
     Notify,
     NotifyEdit,
+    Deploy
 }

@@ -6,13 +6,15 @@ import {
     Ticket,
     TicketDetail,
     Notify,
-    NotifyEdit
+    NotifyEdit,
+    Deploy
 } from "../views";
 
 import {
     HomeOutlined,
     SettingFilled,
     EditOutlined,
+    RightSquareOutlined,
   } from '@ant-design/icons';
 
 
@@ -28,6 +30,14 @@ const commonRoutes = [
 ]
 
 const privateRoutes = [
+    {
+        pathname: '/admin/deploy',
+        component: Deploy,
+        title: '控制台',
+        icon: RightSquareOutlined,
+        isTop: true,
+        family: "deploy"
+    },
     {
         pathname: '/admin/dashboard',
         component: Dashboard,
