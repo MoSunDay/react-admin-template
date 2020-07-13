@@ -1,3 +1,5 @@
+import dayjs from 'dayjs'
+
 const mapFiledToChinese = {
   id: '序号',
   title: '标题',
@@ -10,6 +12,31 @@ const mapFiledToChinese = {
 
 const isDev = process.env.NODE_ENV === 'development';
 const baseURL = isDev ? 'http://127.0.0.1:5000' : 'http://127.0.0.1:5000';
+
+
+
+const formatter = (data, type, column) => {
+  switch (type) {
+    case 'date':
+      return data ? dayjs(data).format('yyyy-MM-dd') : undefined
+    default:
+      return data
+  }
+}
+
+export const columnProcessor = (columns, extraRenderPropsMap) => {
+  return columns.map((column) => {
+    return {
+      ...column,
+      render: column.render
+        ? (text, row) => column.render(text, row, extraRenderPropsMap[column.key])
+        : column.type
+        ? (text) => formatter(text, column.type, column)
+        : undefined
+    }
+  })
+}
+
 
 export {
   mapFiledToChinese,
