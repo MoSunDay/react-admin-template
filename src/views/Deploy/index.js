@@ -106,7 +106,6 @@ const serviceDVcolumns = [
 
 const Deploy = ({ history }) => {
   const [form] = Form.useForm();
-  // 你可以通过 setServiceData 直接改变你 mook 的数据
   const [serviceData, setServiceData] = useState([
     {
       service_describle_version: "em-feed-server:1",
@@ -133,8 +132,6 @@ const Deploy = ({ history }) => {
     if (service === undefined || service === "") {
       return [];
     }
-    //没看懂, 注释了
-    // serviceData[0]["service_describle_version"] = "em-feed-server:2";
     return serviceData;
   };
 
@@ -152,7 +149,7 @@ const Deploy = ({ history }) => {
 
   return (
     <Card title="服务控制台">
-      <Form {...layout} name="control-hooks" onValueChange={handleValueChange} form={form}>
+      <Form {...layout} name="control-hooks" onValuesChange={handleValueChange} form={form}>
         <Form.Item
           name="serviceName"
           label="选择服务"
