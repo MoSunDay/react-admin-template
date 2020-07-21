@@ -19,7 +19,7 @@ const serviceDTcolumns = [
     key: "host",
   },
   {
-    title: "修改与查看",
+    title: "查询状态",
     key: "modify",
     render: (text, row, extra) => (
       <Space>
@@ -28,7 +28,14 @@ const serviceDTcolumns = [
           size="small"
           onClick={extra.viewHandler("service-status")}
         >
-          服务状态
+          运行状态
+        </Button>
+        <Button
+          type="primary"
+          size="small"
+          onClick={extra.viewHandler("service-status")}
+        >
+          服务描述
         </Button>
         <Button
           type="primary"
@@ -42,14 +49,48 @@ const serviceDTcolumns = [
           size="small"
           onClick={extra.viewHandler("service-weight")}
         >
-          权重
+        </Button>
+      </Space>
+    ),
+  },
+  {
+    title: "服务操作",
+    key: "modify",
+    render: (text, row, extra) => (
+      <Space>
+        <Button
+          type="primary"
+          size="small"
+          onClick={extra.viewHandler("service-status")}
+        >
+          修改权重
+        </Button>
+        <Button
+          type="primary"
+          size="small"
+          onClick={extra.viewHandler("release-log")}
+        >
+          伸缩策略
         </Button>
         <Button
           type="primary"
           size="small"
           onClick={extra.viewHandler("common-conf")}
         >
-          公共配置
+          其他配置
+        </Button>
+        <Button
+          type="primary"
+          size="small"
+          onClick={extra.viewHandler("release-log")}
+        >
+        </Button>
+        <Button
+          type="primary"
+          size="small"
+          onClick={extra.viewHandler("release")}
+        >
+          增添部署
         </Button>
       </Space>
     ),
@@ -59,8 +100,8 @@ const serviceDTcolumns = [
 const serviceDVcolumns = [
   {
     title: "服务描述版本",
-    dataIndex: "service_describle_version",
-    key: "service_describle_version",
+    dataIndex: "name",
+    key: "name",
   },
   {
     title: "权重",
@@ -73,7 +114,7 @@ const serviceDVcolumns = [
     key: "status",
   },
   {
-    title: "修改与查看",
+    title: "内容详情",
     key: "modify",
     dataIndex: "modify",
     render: (text, row, extra) => (
@@ -81,40 +122,65 @@ const serviceDVcolumns = [
         <Button
           type="primary"
           size="small"
-          onClick={extra.viewHandler("release")}
+          onClick={extra.viewHandler("modfiy-instance")}
         >
-          发布服务
+          配置
         </Button>
         <Button
           type="primary"
           size="small"
           onClick={extra.viewHandler("modfiy-instance")}
         >
-          实例数
+          发布
         </Button>
         <Button
           type="primary"
           size="small"
-          onClick={extra.viewHandler("deploy-config")}
+          onClick={extra.viewHandler("service-status")}
         >
-          部署配置
+          实例
+        </Button>
+        <Button
+          type="primary"
+          size="small"
+          onClick={extra.viewHandler("modfiy-instance")}
+        >
+          删除
         </Button>
       </Space>
     ),
+  },
+  {
+    title: "创建时间",
+    dataIndex: "create_time",
+    key: "create_time",
   },
 ];
 
 const Deploy = ({ history }) => {
   const [form] = Form.useForm();
-  const [serviceData, setServiceData] = useState([
+  const [serviceData, setServiceData] = useState(
     {
-      service_describle_version: "em-feed-server:1",
-      weight: 100,
-      status: "running",
-      host: "sre.mobiu.space",
-      create_time: "2020-02-02",
+      service: [{
+        host: "sre.mobiu.space",
+        name: "prod-em-feed-server"
+      }],
+      versions: [
+        { 
+          name: "em-feed-server:1",
+          weight: 50,
+          status: "running",
+          create_time: "2020-02-02 20:20:20",
+        },
+        { 
+          name: "em-feed-server:2",
+          weight: 50,
+          status: "running",
+          create_time: "2020-02-02 20:20:20",
+        },
+      ],
     },
-  ]);
+  );
 
   useEffect(() => {
     const storage = window.localStorage;
@@ -128,11 +194,12 @@ const Deploy = ({ history }) => {
     }
   }, []);
 
-  const getServiceDataSource = (service) => {
-    if (service === undefined || service === "") {
-      return [];
-    }
-    return serviceData;
+  const getServiceData = () => {
+    return serviceData["service"];
+  };
+
+  const getServiceDescData = () => {
+    return serviceData["versions"];
   };
 
   const handleValueChange = (changedValue) => {
@@ -188,7 +255,7 @@ const Deploy = ({ history }) => {
                       viewHandler,
                     },
                   })}
-                  dataSource={getServiceDataSource(serviceName)}
+                  dataSource={getServiceData()}
                   title={() => "公共配置详情"}
                   pagination={false}
                 />
@@ -199,7 +266,7 @@ const Deploy = ({ history }) => {
                       viewHandler,
                     },
                   })}
-                  dataSource={getServiceDataSource(serviceName)}
+                  dataSource={getServiceDescData()}
                   title={() => "服务部署信息"}
                   pagination={false}
                 />
