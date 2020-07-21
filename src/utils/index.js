@@ -14,6 +14,16 @@ const isDev = process.env.NODE_ENV === 'development';
 const baseURL = isDev ? 'http://127.0.0.1:5000' : 'http://127.0.0.1:5000';
 
 
+const getQueryVariable = (variable) => {
+    let query = window.location.search.substring(1);
+    let vars = query.split("&");
+    for (let i=0; i<vars.length; i++) {
+          var pair = vars[i].split("=");
+          if(pair[0] == variable){return pair[1];}
+    }
+    return(false);
+}
+
 
 const formatter = (data, type, column) => {
   switch (type) {
@@ -40,5 +50,6 @@ export const columnProcessor = (columns, extraRenderPropsMap) => {
 
 export {
   mapFiledToChinese,
-  baseURL
+  baseURL,
+  getQueryVariable
 }

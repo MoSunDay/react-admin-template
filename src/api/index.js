@@ -10,7 +10,6 @@ service.interceptors.request.use((config) => {
 });
 
 service.interceptors.response.use((response) => {
-  // console.log("axios response: ", response);
   if (response.status === 200) {
     return response.data;
   } else {
@@ -30,7 +29,6 @@ const getTicket = (id) => {
 }
 
 const getTicketApprove = () => {
-  console.log("##########33", baseURL)
   return service.get(`/iam/ticket/approve/list`)
 }
 
@@ -39,9 +37,21 @@ const postTicketStatus = (id, post_data) => {
   return service.post(`/iam/ticket/modfiy/status/${id}`, data)
 }
 
+const getServiceList = () => {
+  let response = service.get(`/api/v1/kube/service_summary`)
+  return response
+}
+
+const getServiceDetails = (serviceName) => {
+  let data = {"content": {"name": serviceName}}
+  return service.post(`/api/v1/kube/service/detail`, data)
+}
+
 export {
   getTopics,
   getTicket,
   postTicketStatus,
-  getTicketApprove
+  getTicketApprove,
+  getServiceList,
+  getServiceDetails
 }

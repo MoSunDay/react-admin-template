@@ -2,6 +2,7 @@ import React from "react";
 import { Form, Button, TreeSelect, Card, Table, Space, Divider } from "antd";
 import PropTypes from "prop-types";
 import { columnProcessor } from "../../utils";
+import { getServiceList, getServiceDetails }  from '../../api';
 
 const { useState, useEffect } = React;
 
@@ -159,30 +160,36 @@ const serviceDVcolumns = [
 
 const Deploy = ({ history }) => {
   const [form] = Form.useForm();
-  const [serviceData, setServiceData] = useState(
-    {
-      service: [{
-        host: "sre.mobiu.space",
-        name: "prod-em-feed-server"
-      }],
-      versions: [
-        { 
-          name: "em-feed-server:1",
-          weight: 50,
-          status: "running",
-          create_time: "2020-02-02 20:20:20",
-        },
-        { 
-          name: "em-feed-server:2",
-          weight: 50,
-          status: "running",
-          create_time: "2020-02-02 20:20:20",
-        },
-      ],
-    },
-  );
+  const [serviceList, setServiceList] = useState([]);
+  const [serviceData, setServiceData] = useState({
+    // service: [{
+    //   host: "sre.mobiu.space",
+    //   name: "prod-em-feed-server"
+    // }],
+    // versions: [
+    //   {
+    //     name: "em-feed-server:1",
+    //     weight: 50,
+    //     status: "running",
+    //     create_time: "2020-02-02 20:20:20",
+    //   },
+    //   {
+    //     name: "em-feed-server:2",
+    //     weight: 50,
+    //     status: "running",
+    //     create_time: "2020-02-02 20:20:20",
+    //   },
+    // ],
+  }, );
 
   useEffect(() => {
+    const response = getServiceList();
+    response.then(res => {
+      setServiceList(res["content"]);
+      }).catch(err => {
+        console.log(err);
+    });
+
     const storage = window.localStorage;
     if (storage["serviceName"]) {
       form.setFields([
@@ -191,8 +198,14 @@ const Deploy = ({ history }) => {
           name: "serviceName",
         },
       ]);
+      const response = getServiceDetails(storage["serviceName"]);
+      response.then(res => {
+        setServiceData(res["content"]);
+        }).catch(err => {
+          console.log(err);
+        })
     }
-  }, []);
+}, []);
 
   const getServiceData = () => {
     return serviceData["service"];
@@ -203,11 +216,18 @@ const Deploy = ({ history }) => {
   };
 
   const handleValueChange = (changedValue) => {
-    if (changedValue.serviceName) {
+    const serviceName = changedValue.serviceName;
+    if (serviceName) {
       const storage = window.localStorage;
-      storage["serviceName"] = changedValue.serviceName;
-      console.log(`onSelectChange: ${changedValue.serviceName}`);
-    }
+      storage["serviceName"] = serviceName;
+
+      const response = getServiceDetails(serviceName);
+      response.then(res => {
+        setServiceData(res["content"]);
+        }).catch(err => {
+            console.log(err);
+        })
+      }
   };
 
   const viewHandler = (resource) => () => {
@@ -227,15 +247,18 @@ const Deploy = ({ history }) => {
             style={{ width: "100%" }}
             dropdownStyle={{ maxHeight: 400, overflow: "auto" }}
             placeholder="Please select"
-            defaultValue="em-feed-server"
             allowClear
             treeDefaultExpandAll
           >
-            <TreeNode
-              value="em-feed-server"
-              key="em-feed-server"
-              title={<b style={{ color: "#08c" }}>em-feed-server</b>}
-            ></TreeNode>
+            {
+              serviceList.map((item, index) => {
+                return <TreeNode
+                        value={item}
+                        key={item}
+                        title={<b style={{ color: "#08c" }}>{item}</b>}
+                      ></TreeNode>
+              })
+            }
           </TreeSelect>
         </Form.Item>
         <Divider />
