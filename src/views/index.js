@@ -81,6 +81,11 @@ const DeployConfig = Loadable({
   loading: Loading,
 })
 
+const DeployRemoveAlertWindows = Loadable({
+  loader: () => import('./DeployRemoveAlertWindows'),
+  loading: Loading,
+})
+
 // import Ticket from './Ticket'
 // import Dashborad from './Dashboard'
 // import Login from './Login'
@@ -104,4 +109,5 @@ export {
   DeployRelease,
   DeployModfiyInstance,
   DeployConfig,
+  DeployRemoveAlertWindows,
 }

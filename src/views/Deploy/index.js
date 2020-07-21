@@ -3,6 +3,7 @@ import { Form, Button, TreeSelect, Card, Table, Space, Divider } from 'antd'
 import PropTypes from 'prop-types'
 import { columnProcessor } from '../../utils'
 import { getServiceList, getServiceDetails } from '../../api'
+import { DeployRemoveAlertWindows } from '../'
 
 const { useState, useEffect } = React
 
@@ -20,40 +21,6 @@ const serviceDTcolumns = [
     key: 'host',
   },
   {
-    title: '查询状态',
-    key: 'modify',
-    render: (text, row, extra) => (
-      <Space>
-        <Button
-          type="primary"
-          size="small"
-          onClick={extra.viewHandler('service-status')}
-        >
-          运行状态
-        </Button>
-        <Button
-          type="primary"
-          size="small"
-          onClick={extra.viewHandler('service-status')}
-        >
-          服务描述
-        </Button>
-        <Button
-          type="primary"
-          size="small"
-          onClick={extra.viewHandler('release-log')}
-        >
-          发布记录
-        </Button>
-        <Button
-          type="primary"
-          size="small"
-          onClick={extra.viewHandler('service-weight')}
-        ></Button>
-      </Space>
-    ),
-  },
-  {
     title: '服务操作',
     key: 'modify',
     render: (text, row, extra) => (
@@ -61,36 +28,65 @@ const serviceDTcolumns = [
         <Button
           type="primary"
           size="small"
-          onClick={extra.viewHandler('service-status')}
+          onClick={extra.serviceViewHandler('service-weight', row)}
         >
           修改权重
         </Button>
         <Button
           type="primary"
           size="small"
-          onClick={extra.viewHandler('release-log')}
+          onClick={extra.serviceViewHandler('hpa', row)}
         >
           伸缩策略
         </Button>
         <Button
           type="primary"
           size="small"
-          onClick={extra.viewHandler('common-conf')}
+          onClick={extra.serviceViewHandler('common-conf', row)}
         >
           其他配置
         </Button>
         <Button
           type="primary"
           size="small"
-          onClick={extra.viewHandler('release-log')}
-        ></Button>
-        <Button
-          type="primary"
-          size="small"
-          onClick={extra.viewHandler('release')}
+          onClick={extra.serviceViewHandler('release', row)}
         >
           增添部署
         </Button>
+      </Space>
+    ),
+  },
+  {
+    title: '查询状态',
+    key: 'modify',
+    render: (text, row, extra) => (
+      <Space>
+        <Button
+          type="primary"
+          size="small"
+          onClick={extra.serviceViewHandler('service-status', row)}
+        >
+          运行状态
+        </Button>
+        <Button
+          type="primary"
+          size="small"
+          onClick={extra.serviceViewHandler('service-version', row)}
+        >
+          服务描述
+        </Button>
+        <Button
+          type="primary"
+          size="small"
+          onClick={extra.serviceViewHandler('release-log', row)}
+        >
+          发布记录
+        </Button>
+        <Button
+          type="primary"
+          size="small"
+          onClick={extra.serviceViewHandler('service-weight', row)}
+        ></Button>
       </Space>
     ),
   },
@@ -121,31 +117,25 @@ const serviceDVcolumns = [
         <Button
           type="primary"
           size="small"
-          onClick={extra.viewHandler('modfiy-instance')}
+          onClick={extra.serviceDescribeViewHandler('deploy-config', row)}
         >
           配置
         </Button>
         <Button
           type="primary"
           size="small"
-          onClick={extra.viewHandler('modfiy-instance')}
+          onClick={extra.serviceDescribeViewHandler('releases', row)}
         >
           发布
         </Button>
         <Button
           type="primary"
           size="small"
-          onClick={extra.viewHandler('service-status')}
+          onClick={extra.serviceDescribeViewHandler('modfiy-instance', row)}
         >
           实例
         </Button>
-        <Button
-          type="primary"
-          size="small"
-          onClick={extra.viewHandler('modfiy-instance')}
-        >
-          删除
-        </Button>
+        <DeployRemoveAlertWindows service={row.name} />
       </Space>
     ),
   },
@@ -234,8 +224,18 @@ const Deploy = ({ history }) => {
     }
   }
 
-  const viewHandler = (resource) => () => {
-    history.push(`/admin/deploy/${resource}`)
+  const serviceViewHandler = (resource, row) => () => {
+    history.push({
+      pathname: `/admin/deploy/${resource}`,
+      state: { service: row.name },
+    })
+  }
+
+  const serviceDescribeViewHandler = (resource, row) => () => {
+    history.push({
+      pathname: `/admin/deploy/${resource}`,
+      state: { serviceDescribe: row.name },
+    })
   }
 
   return (
@@ -284,7 +284,7 @@ const Deploy = ({ history }) => {
                 <Table
                   columns={columnProcessor(serviceDTcolumns, {
                     modify: {
-                      viewHandler,
+                      serviceViewHandler,
                     },
                   })}
                   dataSource={getServiceData()}
@@ -295,7 +295,7 @@ const Deploy = ({ history }) => {
                 <Table
                   columns={columnProcessor(serviceDVcolumns, {
                     modify: {
-                      viewHandler,
+                      serviceDescribeViewHandler,
                     },
                   })}
                   dataSource={getServiceDescData()}

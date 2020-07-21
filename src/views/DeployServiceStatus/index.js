@@ -8,6 +8,14 @@ const layout = {
 }
 
 class DeployServiceStatus extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      data: ['2020-07-12 23:26:55 em-feed-server:1'],
+    }
+    var { service } = this.props.location.state
+  }
+
   goBack = () => {
     return (
       <Button htmlType="button" onClick={this.props.history.goBack}>

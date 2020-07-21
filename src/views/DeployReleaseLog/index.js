@@ -8,6 +8,8 @@ class DeployReleaseLog extends Component {
     this.state = {
       data: ['2020-07-12 23:26:55 em-feed-server:1'],
     }
+    var { serviceDescribe } = this.props.location.state
+    console.log(`1#########, ${serviceDescribe}`)
   }
 
   goBack = () => {
