@@ -4,61 +4,57 @@ import { Card, Button } from 'antd'
 import { Slider, InputNumber, Row, Col } from 'antd'
 
 class DeployModfiyInstance extends Component {
-    state = {
-        inputValue: 5,
-    }
+  state = {
+    inputValue: 5,
+  }
 
-    onChange = (value) => {
-        this.setState({
-            inputValue: value,
-        })
-    }
+  onChange = (value) => {
+    this.setState({
+      inputValue: value,
+    })
+  }
 
-    goBack = () => {
-        return (
-            <Button htmlType="button" onClick={this.props.history.goBack}>
-                返回
-            </Button>
-        )
-    }
+  goBack = () => {
+    return (
+      <Button htmlType="button" onClick={this.props.history.goBack}>
+        返回
+      </Button>
+    )
+  }
 
-    render() {
-        const { inputValue } = this.state
+  render() {
+    const { inputValue } = this.state
 
-        return (
-            <div>
-                <Card title="实例数" extra={this.goBack()}>
-                    <h4>em-feed-server:1</h4>
-                    <Row>
-                        <Col span={12}>
-                            <Slider
-                                min={1}
-                                max={100}
-                                onChange={this.onChange}
-                                value={
-                                    typeof inputValue === 'number'
-                                        ? inputValue
-                                        : 0
-                                }
-                            />
-                        </Col>
-                        <Col span={4}>
-                            <InputNumber
-                                min={1}
-                                max={100}
-                                style={{ margin: '0 16px' }}
-                                value={inputValue}
-                                onChange={this.onChange}
-                            />
-                        </Col>
-                    </Row>
-                    <Button type="primary" htmlType="提交">
-                        提交
-                    </Button>
-                </Card>
-            </div>
-        )
-    }
+    return (
+      <div>
+        <Card title="实例数" extra={this.goBack()}>
+          <h4>em-feed-server:1</h4>
+          <Row>
+            <Col span={12}>
+              <Slider
+                min={1}
+                max={100}
+                onChange={this.onChange}
+                value={typeof inputValue === 'number' ? inputValue : 0}
+              />
+            </Col>
+            <Col span={4}>
+              <InputNumber
+                min={1}
+                max={100}
+                style={{ margin: '0 16px' }}
+                value={inputValue}
+                onChange={this.onChange}
+              />
+            </Col>
+          </Row>
+          <Button type="primary" htmlType="提交">
+            提交
+          </Button>
+        </Card>
+      </div>
+    )
+  }
 }
 
 export default DeployModfiyInstance

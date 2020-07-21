@@ -9,31 +9,31 @@ import { commonRoutes } from './routers'
 import './css/index.less'
 
 ReactDOM.render(
-    <ConfigProvider locale={zhCN}>
-        <Router>
-            <Switch>
-                <Route
-                    path="/admin"
-                    render={(rootProps) => {
-                        return <App {...rootProps} />
-                    }}
-                ></Route>
-                {commonRoutes.map((item, index) => {
-                    return (
-                        <Route
-                            key={item.pathname}
-                            path={item.pathname}
-                            component={item.component}
-                        />
-                    )
-                })}
-                {/* <Redirect from="/admin" to={privateRoutes[0].pathname} exact/>
+  <ConfigProvider locale={zhCN}>
+    <Router>
+      <Switch>
+        <Route
+          path="/admin"
+          render={(rootProps) => {
+            return <App {...rootProps} />
+          }}
+        ></Route>
+        {commonRoutes.map((item, index) => {
+          return (
+            <Route
+              key={item.pathname}
+              path={item.pathname}
+              component={item.component}
+            />
+          )
+        })}
+        {/* <Redirect from="/admin" to={privateRoutes[0].pathname} exact/>
                 <Redirect from="/404"/> */}
 
-                <Redirect from="/" to="/admin" exact />
-                <Redirect to="404" />
-            </Switch>
-        </Router>
-    </ConfigProvider>,
-    document.getElementById('root')
+        <Redirect from="/" to="/admin" exact />
+        <Redirect to="404" />
+      </Switch>
+    </Router>
+  </ConfigProvider>,
+  document.getElementById('root')
 )

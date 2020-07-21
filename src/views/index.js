@@ -2,83 +2,83 @@ import Loadable from 'react-loadable'
 import Loading from '../components/Loading'
 
 const Ticket = Loadable({
-    loader: () => import('./Ticket'),
-    loading: Loading,
+  loader: () => import('./Ticket'),
+  loading: Loading,
 })
 
 const TicketDetail = Loadable({
-    loader: () => import('./Ticket/Detail'),
-    loading: Loading,
+  loader: () => import('./Ticket/Detail'),
+  loading: Loading,
 })
 
 const Dashboard = Loadable({
-    loader: () => import('./Dashboard'),
-    loading: Loading,
+  loader: () => import('./Dashboard'),
+  loading: Loading,
 })
 
 const Login = Loadable({
-    loader: () => import('./Login'),
-    loading: Loading,
+  loader: () => import('./Login'),
+  loading: Loading,
 })
 
 const NotFound = Loadable({
-    loader: () => import('./NotFound'),
-    loading: Loading,
+  loader: () => import('./NotFound'),
+  loading: Loading,
 })
 
 const TicketCreate = Loadable({
-    loader: () => import('./TicketCreate'),
-    loading: Loading,
+  loader: () => import('./TicketCreate'),
+  loading: Loading,
 })
 
 const Notify = Loadable({
-    loader: () => import('./Notify'),
-    loading: Loading,
+  loader: () => import('./Notify'),
+  loading: Loading,
 })
 
 const NotifyEdit = Loadable({
-    loader: () => import('./Notify/Edit'),
-    loading: Loading,
+  loader: () => import('./Notify/Edit'),
+  loading: Loading,
 })
 
 const Deploy = Loadable({
-    loader: () => import('./Deploy'),
-    loading: Loading,
+  loader: () => import('./Deploy'),
+  loading: Loading,
 })
 
 const DeployCommonConf = Loadable({
-    loader: () => import('./DeployCommonConf'),
-    loading: Loading,
+  loader: () => import('./DeployCommonConf'),
+  loading: Loading,
 })
 
 const DeployWeight = Loadable({
-    loader: () => import('./DeployWeight'),
-    loading: Loading,
+  loader: () => import('./DeployWeight'),
+  loading: Loading,
 })
 
 const DeployReleaseLog = Loadable({
-    loader: () => import('./DeployReleaseLog'),
-    loading: Loading,
+  loader: () => import('./DeployReleaseLog'),
+  loading: Loading,
 })
 
 const DeployServiceStatus = Loadable({
-    loader: () => import('./DeployServiceStatus'),
-    loading: Loading,
+  loader: () => import('./DeployServiceStatus'),
+  loading: Loading,
 })
 
 const DeployRelease = Loadable({
-    loader: () => import('./DeployRelease'),
-    loading: Loading,
+  loader: () => import('./DeployRelease'),
+  loading: Loading,
 })
 
 const DeployModfiyInstance = Loadable({
-    loader: () => import('./DeployModfiyInstance'),
-    loading: Loading,
+  loader: () => import('./DeployModfiyInstance'),
+  loading: Loading,
 })
 
 const DeployConfig = Loadable({
-    loader: () => import('./DeployConfig'),
-    loading: Loading,
+  loader: () => import('./DeployConfig'),
+  loading: Loading,
 })
 
 // import Ticket from './Ticket'
@@ -88,20 +88,20 @@ const DeployConfig = Loadable({
 // import Setting from './Setting'
 
 export {
-    Ticket,
-    TicketDetail,
-    Dashboard,
-    Login,
-    NotFound,
-    TicketCreate,
-    Notify,
-    NotifyEdit,
-    Deploy,
-    DeployCommonConf,
-    DeployWeight,
-    DeployReleaseLog,
-    DeployServiceStatus,
-    DeployRelease,
-    DeployModfiyInstance,
-    DeployConfig,
+  Ticket,
+  TicketDetail,
+  Dashboard,
+  Login,
+  NotFound,
+  TicketCreate,
+  Notify,
+  NotifyEdit,
+  Deploy,
+  DeployCommonConf,
+  DeployWeight,
+  DeployReleaseLog,
+  DeployServiceStatus,
+  DeployRelease,
+  DeployModfiyInstance,
+  DeployConfig,
 }
