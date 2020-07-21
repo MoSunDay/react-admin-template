@@ -1,8 +1,8 @@
-import { 
+import {
     Login,
     Dashboard,
     NotFound,
-    TicketCreate, 
+    TicketCreate,
     Ticket,
     TicketDetail,
     Notify,
@@ -14,16 +14,15 @@ import {
     DeployServiceStatus,
     DeployRelease,
     DeployModfiyInstance,
-    DeployConfig
-} from "../views";
+    DeployConfig,
+} from '../views'
 
 import {
     HomeOutlined,
     SettingFilled,
     EditOutlined,
     RightSquareOutlined,
-  } from '@ant-design/icons';
-
+} from '@ant-design/icons'
 
 const commonRoutes = [
     {
@@ -43,7 +42,7 @@ const privateRoutes = [
         title: '仪表盘',
         icon: HomeOutlined,
         isTop: true,
-        family: "system"
+        family: 'system',
     },
     {
         pathname: '/admin/deploy',
@@ -52,7 +51,7 @@ const privateRoutes = [
         icon: RightSquareOutlined,
         isTop: true,
         exact: true,
-        family: "deploy"
+        family: 'deploy',
     },
     {
         pathname: '/admin/deploy/common-conf',
@@ -61,7 +60,7 @@ const privateRoutes = [
         icon: RightSquareOutlined,
         isTop: false,
         exact: true,
-        family: "deploy"
+        family: 'deploy',
     },
     {
         pathname: '/admin/deploy/service-weight',
@@ -70,7 +69,7 @@ const privateRoutes = [
         icon: RightSquareOutlined,
         isTop: false,
         exact: true,
-        family: "deploy"
+        family: 'deploy',
     },
     {
         pathname: '/admin/deploy/release-log',
@@ -79,7 +78,7 @@ const privateRoutes = [
         icon: RightSquareOutlined,
         isTop: false,
         exact: true,
-        family: "deploy"
+        family: 'deploy',
     },
     {
         pathname: '/admin/deploy/service-status',
@@ -88,7 +87,7 @@ const privateRoutes = [
         icon: RightSquareOutlined,
         isTop: false,
         exact: true,
-        family: "deploy"
+        family: 'deploy',
     },
     {
         pathname: '/admin/deploy/release',
@@ -97,7 +96,7 @@ const privateRoutes = [
         icon: RightSquareOutlined,
         isTop: false,
         exact: true,
-        family: "deploy"
+        family: 'deploy',
     },
     {
         pathname: '/admin/deploy/modfiy-instance',
@@ -106,7 +105,7 @@ const privateRoutes = [
         icon: RightSquareOutlined,
         isTop: false,
         exact: true,
-        family: "deploy"
+        family: 'deploy',
     },
     {
         pathname: '/admin/deploy/deploy-config',
@@ -115,7 +114,7 @@ const privateRoutes = [
         icon: RightSquareOutlined,
         isTop: false,
         exact: true,
-        family: "deploy"
+        family: 'deploy',
     },
     {
         pathname: '/admin/ticket',
@@ -124,7 +123,7 @@ const privateRoutes = [
         icon: SettingFilled,
         exact: true,
         isTop: true,
-        family: "ticket"
+        family: 'ticket',
     },
     {
         pathname: '/admin/ticket/detail/:id',
@@ -132,7 +131,7 @@ const privateRoutes = [
         title: '工单编辑',
         icon: SettingFilled,
         isTop: false,
-        family: "ticket"
+        family: 'ticket',
     },
     {
         pathname: '/admin/ticket/create',
@@ -140,7 +139,7 @@ const privateRoutes = [
         title: '创建工单',
         icon: EditOutlined,
         isTop: true,
-        family: "ticket"
+        family: 'ticket',
     },
     {
         pathname: '/admin/notify',
@@ -148,7 +147,7 @@ const privateRoutes = [
         title: '通知中心',
         icon: SettingFilled,
         isTop: true,
-        family: "system"
+        family: 'system',
     },
     {
         pathname: '/admin/notify/edit/:id',
@@ -156,11 +155,8 @@ const privateRoutes = [
         title: '通知中心',
         icon: SettingFilled,
         isTop: false,
-        family: "system"
+        family: 'system',
     },
 ]
 
-export {
-    commonRoutes,
-    privateRoutes
-}
+export { commonRoutes, privateRoutes }
