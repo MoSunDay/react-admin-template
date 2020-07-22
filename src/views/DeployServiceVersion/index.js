@@ -1,16 +1,29 @@
 import React, { Component } from 'react'
 import { Card, Button } from 'antd'
-import { List, Typography, Divider } from 'antd'
+import { List } from 'antd'
+import { getServiceVersionList } from '../../api'
+
 
 class DeployServiceVersion extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      service: 'test',
-      data: ['2020-07-12 23:26:55 em-feed-server:1'],
+      serviceVersionList: [],
     }
   }
 
+  componentDidMount() {
+    let { service } = this.props.location.state
+    const response = getServiceVersionList(service)
+    response
+      .then((res) => {
+        this.setState({serviceVersionList: res["content"]});
+      })
+      .catch((err) => {
+        console.log(err)
+      });
+  }
+ 
   goBack = () => {
     return (
       <Button htmlType="button" onClick={this.props.history.goBack}>
@@ -19,16 +32,25 @@ class DeployServiceVersion extends Component {
     )
   }
 
+  selectVersion = (serviceVersion) => {
+    this.props.history.push({
+      pathname: `/admin/deploy/service-version/detail`,
+      state: { serviceVersion: serviceVersion },
+    })
+  }
+
   render() {
     return (
       <div>
-        <Card title="发布日志" extra={this.goBack()}>
+        <Card title="版本信息" extra={this.goBack()}>
           <List
             bordered
-            dataSource={this.state.data}
+            dataSource={this.state.serviceVersionList}
             renderItem={(item) => (
-              <List.Item>
-                <Typography.Text mark>[Log]</Typography.Text> {item}
+              <List.Item onClick={()=>this.selectVersion(item)}>
+                <List.Item.Meta
+                  title={<a href="javascript:void(0);">{item}</a>}
+                />
               </List.Item>
             )}
           />

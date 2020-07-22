@@ -10,7 +10,7 @@ service.interceptors.request.use((config) => {
 })
 
 service.interceptors.response.use((response) => {
-  if (response.status === 200) {
+  if (response.status === 200 || response.status === 201) {
     return response.data
   } else {
     message.error('系统繁忙, 请稍后再试...')
@@ -42,8 +42,64 @@ const getServiceList = () => {
 }
 
 const getServiceDetails = (serviceName) => {
-  let data = { content: { name: serviceName } }
-  return service.post(`/api/v1/kube/service/detail`, data)
+  return service.get(`/api/v1/kube/service/detail/${serviceName}`)
+}
+
+const getServiceWeight = (serviceName) => {
+  return service.get(`/api/v1/kube/service_summary/weight/${serviceName}`)
+}
+
+const setServiceWeight = (serviceName, weight) => {
+  let data = { content: { weight: weight } }
+  return service.post(`/api/v1/kube/service_summary/weight/${serviceName}`, data)
+}
+
+const getServiceHpa = (serviceName) => {
+  return service.get(`/api/v1/kube/service_summary/hpa/${serviceName}`)
+}
+
+const setServiceHpa = (serviceName, content) => {
+  let data = { content: { hpa: content } }
+  return service.post(`/api/v1/kube/service_summary/hpa/${serviceName}`, data)
+}
+
+const getServiceCommonConfig = (serviceName) => {
+  return service.get(`/api/v1/kube/service_summary/common/${serviceName}`)
+}
+
+const setServiceCommonConfig = (serviceName, content) => {
+  let data = { content: { common: content } }
+  return service.post(`/api/v1/kube/service_summary/common/${serviceName}`, data)
+}
+
+const getServiceVersionList = (serviceName) => {
+  return service.get(`/api/v1/kube/service_deployment_set/${serviceName}/history`)
+}
+
+const addServiceDeployment = (serviceName, serviceVersion) => {
+  return service.post(`/api/v1/kube/service_summary/${serviceName}/deploymentset/${serviceVersion}`)
+}
+
+const getServiceVersionDetail = (serviceVersion) => {
+  return service.get(`/api/v1/kube/service_deployment_set/${serviceVersion}/detail`)
+}
+
+const setServiceVersionDetail = (serviceVersion, content, resource) => {
+  let data = { content: content }
+  return service.post(`/api/v1/kube/service_deployment_set/${serviceVersion}/${resource}`, data)
+}
+
+const getServiceVersionInstanceNumber = (serviceVersion) => {
+  return service.post(`/api/v1/kube/service_deployment_set/${serviceVersion}/instance`)
+}
+
+const setServiceVersionInstanceNumber = (serviceVersion, instanceNumber) => {
+  let data = { content: instanceNumber }
+  return service.post(`/api/v1/kube/service_deployment_set/${serviceVersion}/instance`, data)
+}
+
+const delServiceDeployment = (serviceName, serviceVersion) => {
+  return service.delete(`/api/v1/kube/service_summary/${serviceName}/deploymentset/${serviceVersion}`)
 }
 
 export {
@@ -53,4 +109,17 @@ export {
   getTicketApprove,
   getServiceList,
   getServiceDetails,
+  getServiceWeight,
+  setServiceWeight,
+  getServiceHpa,
+  setServiceHpa,
+  getServiceCommonConfig,
+  setServiceCommonConfig,
+  getServiceVersionList,
+  addServiceDeployment,
+  getServiceVersionDetail,
+  setServiceVersionDetail,
+  getServiceVersionInstanceNumber,
+  setServiceVersionInstanceNumber,
+  delServiceDeployment
 }

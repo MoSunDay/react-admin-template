@@ -1,14 +1,15 @@
 import { Modal, Button } from 'antd'
 import React, { Component } from 'react'
+import { delServiceDeployment } from '../../api'
 
 class DeployRemoveAlertWindows extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      ModalText: `确认要删除 ${props.service} 吗？`,
+      ModalText: `确认要删除吗？`,
       visible: false,
       confirmLoading: false,
-      service: props.service,
+      serviceVersion: props.serviceVersion,
     }
   }
 
@@ -25,9 +26,20 @@ class DeployRemoveAlertWindows extends Component {
     })
     setTimeout(() => {
       this.setState({
+        ModalText: '确认要删除吗？',
         visible: false,
         confirmLoading: false,
       })
+      let { serviceVersion } = this.state;
+      let serviceName = serviceVersion.split(":")[0];
+      const response = delServiceDeployment(serviceName, serviceVersion);
+      response
+        .then((res) => {
+          this.setState({content: res["content"]["config"]["hpa"], serviceVersion: serviceVersion});
+        })
+        .catch((err) => {
+          console.log(err)
+        });
     }, 2000)
   }
 

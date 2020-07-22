@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Card, Button } from 'antd'
-import { Form, Input } from 'antd'
-import { getServiceCommonConfig, setServiceCommonConfig } from '../../api'
+import { Input } from 'antd'
+import { getServiceVersionDetail, setServiceVersionDetail } from '../../api'
 
 const layout = {
   labelCol: { span: 0 },
@@ -9,21 +9,21 @@ const layout = {
 }
 
 
-class DeployCommonConf extends Component {
+class DeployServiceVersionDetail extends Component {
   constructor(props) {
     super(props)
     this.state = {
       content: "",
-      serviceName: "",
+      serviceVersion: "",
     }
   }
 
   componentDidMount() {
-    let { service } = this.props.location.state
-    const response = getServiceCommonConfig(service)
+    let { serviceVersion } = this.props.location.state
+    const response = getServiceVersionDetail(serviceVersion)
     response
       .then((res) => {
-        this.setState({content: res["content"], serviceName: service});
+        this.setState({content: res["content"]["config"]["deployment"], serviceVersion: serviceVersion});
       })
       .catch((err) => {
         console.log(err)
@@ -37,7 +37,7 @@ class DeployCommonConf extends Component {
   }
 
   onSubmit = () => {
-    const response = setServiceCommonConfig(this.state.serviceName, this.state.content)
+    const response = setServiceVersionDetail(this.state.serviceVersion, this.state.content, "deployment")
     response
       .then((res) => {
         console.log("common submit")
@@ -59,10 +59,10 @@ class DeployCommonConf extends Component {
   render() {
     return (
       <div>
-        <Card title="公共配置" extra={this.goBack()}>
+        <Card title="版本详情" extra={this.goBack()}>
             <Input.TextArea {...layout} autoSize={true} value={this.state.content} onChange={this.onChange} />
             <Button type="primary" onClick={this.onSubmit} style={{ marginTop: '15px'}}>
-              提交
+              确认修改
             </Button>
         </Card>
       </div>
@@ -70,4 +70,4 @@ class DeployCommonConf extends Component {
   }
 }
 
-export default DeployCommonConf
+export default DeployServiceVersionDetail

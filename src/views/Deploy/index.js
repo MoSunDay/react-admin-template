@@ -35,21 +35,14 @@ const serviceDTcolumns = [
         <Button
           type="primary"
           size="small"
-          onClick={extra.serviceViewHandler('hpa', row)}
-        >
-          伸缩策略
-        </Button>
-        <Button
-          type="primary"
-          size="small"
           onClick={extra.serviceViewHandler('common-conf', row)}
         >
-          其他配置
+          服务配置
         </Button>
         <Button
           type="primary"
           size="small"
-          onClick={extra.serviceViewHandler('release', row)}
+          onClick={extra.serviceViewHandler('add-gray', row)}
         >
           增添部署
         </Button>
@@ -73,7 +66,7 @@ const serviceDTcolumns = [
           size="small"
           onClick={extra.serviceViewHandler('service-version', row)}
         >
-          服务描述
+          版本列表
         </Button>
         <Button
           type="primary"
@@ -117,14 +110,14 @@ const serviceDVcolumns = [
         <Button
           type="primary"
           size="small"
-          onClick={extra.serviceDescribeViewHandler('deploy-config', row)}
+          onClick={extra.serviceDescribeViewHandler('service-version/detail', row)}
         >
           配置
         </Button>
         <Button
           type="primary"
           size="small"
-          onClick={extra.serviceDescribeViewHandler('releases', row)}
+          onClick={extra.serviceDescribeViewHandler('release', row)}
         >
           发布
         </Button>
@@ -135,7 +128,14 @@ const serviceDVcolumns = [
         >
           实例
         </Button>
-        <DeployRemoveAlertWindows service={row.name} />
+        <Button
+          type="primary"
+          size="small"
+          onClick={extra.serviceDescribeViewHandler('hpa', row)}
+        >
+          伸缩
+        </Button>
+        <DeployRemoveAlertWindows serviceVersion={row.name} />
       </Space>
     ),
   },
@@ -234,7 +234,7 @@ const Deploy = ({ history }) => {
   const serviceDescribeViewHandler = (resource, row) => () => {
     history.push({
       pathname: `/admin/deploy/${resource}`,
-      state: { serviceDescribe: row.name },
+      state: { serviceVersion: row.name },
     })
   }
 

@@ -15,6 +15,10 @@ import {
   DeployRelease,
   DeployModfiyInstance,
   DeployConfig,
+  DeployHpaConf,
+  DeployGray,
+  DeployServiceVersion,
+  DeployServiceVersionDetail
 } from '../views'
 
 import {
@@ -111,6 +115,42 @@ const privateRoutes = [
     pathname: '/admin/deploy/deploy-config',
     component: DeployConfig,
     title: '服务配置',
+    icon: RightSquareOutlined,
+    isTop: false,
+    exact: true,
+    family: 'deploy',
+  },
+  {
+    pathname: '/admin/deploy/hpa',
+    component: DeployHpaConf,
+    title: '服务配置',
+    icon: RightSquareOutlined,
+    isTop: false,
+    exact: true,
+    family: 'deploy',
+  },
+  {
+    pathname: '/admin/deploy/add-gray',
+    component: DeployGray,
+    title: '添加部署',
+    icon: RightSquareOutlined,
+    isTop: false,
+    exact: true,
+    family: 'deploy',
+  },
+  {
+    pathname: '/admin/deploy/service-version',
+    component: DeployServiceVersion,
+    title: '部署版本',
+    icon: RightSquareOutlined,
+    isTop: false,
+    exact: true,
+    family: 'deploy',
+  },
+  {
+    pathname: '/admin/deploy/service-version/detail',
+    component: DeployServiceVersionDetail,
+    title: '版本详情',
     icon: RightSquareOutlined,
     isTop: false,
     exact: true,

@@ -86,6 +86,26 @@ const DeployRemoveAlertWindows = Loadable({
   loading: Loading,
 })
 
+const DeployHpaConf = Loadable({
+  loader: () => import('./DeployHpaConf'),
+  loading: Loading,
+})
+
+const DeployGray = Loadable({
+  loader: () => import('./DeployGray'),
+  loading: Loading,
+})
+
+const DeployServiceVersion = Loadable({
+  loader: () => import('./DeployServiceVersion'),
+  loading: Loading,
+})
+
+const DeployServiceVersionDetail = Loadable({
+  loader: () => import('./DeployServiceVersionDetail'),
+  loading: Loading,
+})
+
 // import Ticket from './Ticket'
 // import Dashborad from './Dashboard'
 // import Login from './Login'
@@ -110,4 +130,8 @@ export {
   DeployModfiyInstance,
   DeployConfig,
   DeployRemoveAlertWindows,
+  DeployHpaConf,
+  DeployGray,
+  DeployServiceVersion,
+  DeployServiceVersionDetail,
 }
