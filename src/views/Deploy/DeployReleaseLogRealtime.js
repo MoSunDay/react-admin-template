@@ -1,8 +1,10 @@
 
 import React, { useState, useEffect } from 'react'
+import { Card, Button } from 'antd'
+import PropTypes from 'prop-types'
 import webSocket from 'socket.io-client'
 
-const DeployReleaseLogRealtime = (props) => {
+const DeployReleaseLogRealtime = ({ history }) => {
     const [ws,setWs] = useState(null)
 
     useEffect(()=>{
@@ -19,20 +21,25 @@ const DeployReleaseLogRealtime = (props) => {
         })
     }
  
-    goBack = () => {
+    const goBack = () => {
         return (
-          <Button htmlType="button" onClick={this.props.history.goBack}>
+          <Button htmlType="button" onClick={history.goBack}>
             返回
           </Button>
         )
     }
 
     return(
-        <Card title="实时日志" extra={this.goBack()}>
+        <Card title="实时日志" extra={goBack}>
         <div>
         </div>
         </Card>
     )
 }
+
+DeployReleaseLogRealtime.propTypes = {
+    history: PropTypes.object,
+}
+  
 
 export default DeployReleaseLogRealtime;
