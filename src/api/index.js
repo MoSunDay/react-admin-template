@@ -90,12 +90,12 @@ const setServiceVersionDetail = (serviceVersion, content, resource) => {
 }
 
 const getServiceVersionInstanceNumber = (serviceVersion) => {
-  return service.post(`/api/v1/kube/service_deployment_set/${serviceVersion}/instance`)
+  return service.get(`/api/v1/kube/instance/${serviceVersion}`)
 }
 
 const setServiceVersionInstanceNumber = (serviceVersion, instanceNumber) => {
   let data = { content: instanceNumber }
-  return service.post(`/api/v1/kube/service_deployment_set/${serviceVersion}/instance`, data)
+  return service.post(`/api/v1/kube/instance/${serviceVersion}`, data)
 }
 
 const delServiceDeployment = (serviceName, serviceVersion) => {

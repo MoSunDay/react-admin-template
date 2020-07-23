@@ -47,62 +47,62 @@ const Deploy = Loadable({
 })
 
 const DeployCommonConf = Loadable({
-  loader: () => import('./DeployCommonConf'),
+  loader: () => import('./Deploy/DeployCommonConf'),
   loading: Loading,
 })
 
 const DeployWeight = Loadable({
-  loader: () => import('./DeployWeight'),
+  loader: () => import('./Deploy/DeployWeight'),
   loading: Loading,
 })
 
 const DeployReleaseLog = Loadable({
-  loader: () => import('./DeployReleaseLog'),
+  loader: () => import('./Deploy/DeployReleaseLog'),
   loading: Loading,
 })
 
 const DeployServiceStatus = Loadable({
-  loader: () => import('./DeployServiceStatus'),
+  loader: () => import('./Deploy/DeployServiceStatus'),
   loading: Loading,
 })
 
 const DeployRelease = Loadable({
-  loader: () => import('./DeployRelease'),
+  loader: () => import('./Deploy/DeployRelease'),
   loading: Loading,
 })
 
 const DeployModfiyInstance = Loadable({
-  loader: () => import('./DeployModfiyInstance'),
+  loader: () => import('./Deploy/DeployModfiyInstance'),
   loading: Loading,
 })
 
 const DeployConfig = Loadable({
-  loader: () => import('./DeployConfig'),
+  loader: () => import('./Deploy/DeployConfig'),
   loading: Loading,
 })
 
 const DeployRemoveAlertWindows = Loadable({
-  loader: () => import('./DeployRemoveAlertWindows'),
+  loader: () => import('./Deploy/DeployRemoveAlertWindows'),
   loading: Loading,
 })
 
 const DeployHpaConf = Loadable({
-  loader: () => import('./DeployHpaConf'),
+  loader: () => import('./Deploy/DeployHpaConf'),
   loading: Loading,
 })
 
 const DeployGray = Loadable({
-  loader: () => import('./DeployGray'),
+  loader: () => import('./Deploy/DeployGray'),
   loading: Loading,
 })
 
 const DeployServiceVersion = Loadable({
-  loader: () => import('./DeployServiceVersion'),
+  loader: () => import('./Deploy/DeployServiceVersion'),
   loading: Loading,
 })
 
 const DeployServiceVersionDetail = Loadable({
-  loader: () => import('./DeployServiceVersionDetail'),
+  loader: () => import('./Deploy/DeployServiceVersionDetail'),
   loading: Loading,
 })
 
