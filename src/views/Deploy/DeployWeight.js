@@ -26,7 +26,8 @@ class DeployWeight extends Component {
     const response = getServiceWeight(service)
     response
       .then((res) => {
-        this.setState({weight: JSON.parse(res["content"]), serviceName: service});
+        this.setState({weight: res["content"], serviceName: service});
+        console.log(res["content"]);
       })
       .catch((err) => {
         console.log(err)
@@ -81,7 +82,6 @@ class DeployWeight extends Component {
 
   render() {
     let {weight} = this.state;
-    console.log(weight);
     return (
       <div>
         <Card title="权重" extra={this.goBack()}>

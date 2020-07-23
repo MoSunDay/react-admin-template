@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Card, Button } from 'antd'
-import { Form, Input, InputNumber } from 'antd'
+import { getServiceVersionStatus } from '../../api'
 
 const layout = {
   labelCol: { span: 0 },
@@ -11,9 +11,22 @@ class DeployServiceStatus extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      data: ['2020-07-12 23:26:55 em-feed-server:1'],
+      serviceVersion: "",
+      status: {}
     }
-    var { service } = this.props.location.state
+  }
+
+  componentDidMount() {
+    let { serviceVersion } = this.props.location.state;
+    const response = getServiceVersionStatus(serviceVersion);
+    response
+      .then((res) => {
+        console.log(`!@132321 ${res["content"]} `)
+        this.setState({serviceVersion: serviceVersion, status: res["content"]});
+      })
+      .catch((err) => {
+        console.log(err)
+      });
   }
 
   goBack = () => {
@@ -25,22 +38,20 @@ class DeployServiceStatus extends Component {
   }
 
   render() {
+    const {status} = this.state;
     return (
       <div>
         <Card title="服务状态" extra={this.goBack()}>
-          <Card title="部署信息">
-            <pre>em-feed-server-v1 7/7 7 7 13d</pre>
-          </Card>
-          <br />
-          <Card title="容器状态">
-            <pre>em-feed-server-v1-fc995b99-79cs9 2/2 Running 0 4h32m</pre>
-          </Card>
-          <br />
-          <Card title="伸缩策略">
-            <pre>
-              em-feed-server Deployment/em-feed-server-v1 40%/45% 2 100 7 47d
-            </pre>
-          </Card>
+            {
+                Object.keys(status).map(key => {
+                return <div>
+                        <Card title={key}>
+                        <pre>{status[key]}</pre>
+                        </Card>
+                        <br/>
+                    </div>
+                })
+            }
         </Card>
       </div>
     )

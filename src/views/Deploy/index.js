@@ -57,13 +57,6 @@ const serviceDTcolumns = [
         <Button
           type="primary"
           size="small"
-          onClick={extra.serviceViewHandler('service-status', row)}
-        >
-          运行状态
-        </Button>
-        <Button
-          type="primary"
-          size="small"
           onClick={extra.serviceViewHandler('service-version', row)}
         >
           版本列表
@@ -134,6 +127,13 @@ const serviceDVcolumns = [
           onClick={extra.serviceDescribeViewHandler('hpa', row)}
         >
           伸缩
+        </Button>
+        <Button
+          type="primary"
+          size="small"
+          onClick={extra.serviceDescribeViewHandler('service-status', row)}
+        >
+          状态
         </Button>
         <DeployRemoveAlertWindows serviceVersion={row.name} />
       </Space>
@@ -238,8 +238,20 @@ const Deploy = ({ history }) => {
     })
   }
 
+  const reflushButton = () => {
+    return (
+      <Button htmlType="button" onClick={reflush}>
+        刷新
+      </Button>
+    )
+  }
+
+  const reflush = () => {
+    history.go(0);
+  }
+
   return (
-    <Card title="服务控制台">
+    <Card title="服务控制台" extra={reflushButton()}>
       <Form
         {...layout}
         name="control-hooks"

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Card, Button } from 'antd'
 import { Select } from 'antd'
-import { getServiceVersionList } from '../../api'
+import { submitDeploy, getServiceVersionList } from '../../api'
 
 const { Option } = Select;
 
@@ -15,18 +15,19 @@ class DeployRelease extends Component {
     super(props)
     this.state = {
       serviceVersionList: [],
-      serviceVersion: "",
-      selectVersion: "",
+      source: "",
+      target: "",
+      serviceName: "",
     }
   }
 
   componentDidMount() {
-    let { serviceVersion } = this.props.location.state
-    let service = serviceVersion.split(":")[0]
-    const response = getServiceVersionList(service)
+    let { serviceVersion } = this.props.location.state;
+    let service = serviceVersion.split(":")[0];
+    const response = getServiceVersionList(service);
     response
       .then((res) => {
-        this.setState({serviceVersion: serviceVersion, serviceVersionList: res["content"]});
+        this.setState({source: serviceVersion, serviceVersionList: res["content"], serviceName: service});
         console.log(this.state.serviceVersionList);
       })
       .catch((err) => {
@@ -44,7 +45,7 @@ class DeployRelease extends Component {
 
   onChange = (value) => {
     console.log(`selected ${value}`);
-    this.setState({selectVersion: value});
+    this.setState({target: value});
   }
   
   onBlur = () => {
@@ -60,21 +61,21 @@ class DeployRelease extends Component {
   }
 
   onSubmit = () => {
-    // const response = addServiceDeployment(this.state.serviceName, this.state.serviceVersion)
-    // response
-    //   .then((res) => {
-    //     this.props.history.goBack();
-    //   })
-    //   .catch((err) => {
-    //     console.log(err)
-    //   });
+    const response = submitDeploy(this.state.serviceName, this.state.source, this.state.target)
+    response
+      .then((res) => {
+        this.props.history.goBack();
+      })
+      .catch((err) => {
+        console.log(err)
+      });
   }
 
   render() {
     return (
       <div>
         <Card title="发布服务" extra={this.goBack()}>
-          <h3>已选中: {this.state.serviceVersion}</h3>
+          <h4>已选中: {this.state.source}</h4>
           <Select
               showSearch
               {...layout}

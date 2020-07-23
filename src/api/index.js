@@ -102,6 +102,28 @@ const delServiceDeployment = (serviceName, serviceVersion) => {
   return service.delete(`/api/v1/kube/service_summary/${serviceName}/deploymentset/${serviceVersion}`)
 }
 
+const getServiceReleaseLogList = (serviceName) => {
+  return service.get(`/api/v1/kube/service_summary/release-log/${serviceName}`);
+}
+
+const getServiceVersionStatus = (serviceVersion) => {
+  return service.get(`/api/v1/kube/service_deployment_set/${serviceVersion}/deploy/status`);
+}
+
+const submitDeploy = (serviceName, source, target) => {
+  let data = {
+    content: {
+      source: source,
+      target: target
+    }
+  };
+  return service.post(`/api/v1/kube/deploy/slow_start/${serviceName}`, data);
+}
+
+const getServiceReleaseLogDetail = (serviceName, selectLog) => {
+  return service.get(`/api/v1/kube/service_summary/release-log/${serviceName}/${selectLog}`);
+}
+
 export {
   getTopics,
   getTicket,
@@ -121,5 +143,9 @@ export {
   setServiceVersionDetail,
   getServiceVersionInstanceNumber,
   setServiceVersionInstanceNumber,
-  delServiceDeployment
+  delServiceDeployment,
+  getServiceReleaseLogList,
+  getServiceVersionStatus,
+  submitDeploy,
+  getServiceReleaseLogDetail
 }

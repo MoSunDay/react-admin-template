@@ -106,6 +106,11 @@ const DeployServiceVersionDetail = Loadable({
   loading: Loading,
 })
 
+const DeployReleaseLogView = Loadable({
+  loader: () => import('./Deploy/DeployReleaseLogView'),
+  loading: Loading,
+})
+
 // import Ticket from './Ticket'
 // import Dashborad from './Dashboard'
 // import Login from './Login'
@@ -134,4 +139,5 @@ export {
   DeployGray,
   DeployServiceVersion,
   DeployServiceVersionDetail,
+  DeployReleaseLogView
 }
