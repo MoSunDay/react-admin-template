@@ -111,6 +111,11 @@ const DeployReleaseLogView = Loadable({
   loading: Loading,
 })
 
+const DeployReleaseLogRealtime = Loadable({
+  loader: () => import('./Deploy/DeployReleaseLogRealtime'),
+  loading: Loading,
+})
+
 // import Ticket from './Ticket'
 // import Dashborad from './Dashboard'
 // import Login from './Login'
@@ -139,5 +144,6 @@ export {
   DeployGray,
   DeployServiceVersion,
   DeployServiceVersionDetail,
-  DeployReleaseLogView
+  DeployReleaseLogView,
+  DeployReleaseLogRealtime
 }

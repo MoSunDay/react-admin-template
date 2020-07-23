@@ -1,52 +1,38 @@
-import React, { useState, useCallback, useMemo, useRef } from 'react';
-import useWebSocket, { ReadyState } from 'react-use-websocket';
 
-export const WebSocketDemo = () => {
-  const [socketUrl, setSocketUrl] = useState('ws://echo.websocket.org');
-  const messageHistory = useRef([]);
+import React, { useState, useEffect } from 'react'
+import webSocket from 'socket.io-client'
 
-  const {
-    sendMessage,
-    lastMessage,
-    readyState,
-  } = useWebSocket(socketUrl);
+const DeployReleaseLogRealtime = (props) => {
+    const [ws,setWs] = useState(null)
 
-  messageHistory.current = useMemo(() =>
-    messageHistory.current.concat(lastMessage),[lastMessage]);
+    useEffect(()=>{
+        setWs(webSocket('http://localhost:3000'))
+        if(ws){
+            console.log('success connect!')
+            initWebSocket()
+        }
+    },[ws])
 
-  const handleClickChangeSocketUrl = useCallback(() =>
-    setSocketUrl('ws://demos.kaazing.com/echo'), []);
+    const initWebSocket = () => {
+        ws.on('response', message => {
+            console.log(message)
+        })
+    }
+ 
+    goBack = () => {
+        return (
+          <Button htmlType="button" onClick={this.props.history.goBack}>
+            返回
+          </Button>
+        )
+    }
 
-  const handleClickSendMessage = useCallback(() =>
-    sendMessage('Hello'), []);
+    return(
+        <Card title="实时日志" extra={this.goBack()}>
+        <div>
+        </div>
+        </Card>
+    )
+}
 
-  const connectionStatus = {
-    [ReadyState.CONNECTING]: 'Connecting',
-    [ReadyState.OPEN]: 'Open',
-    [ReadyState.CLOSING]: 'Closing',
-    [ReadyState.CLOSED]: 'Closed',
-    [ReadyState.UNINSTANTIATED]: 'Uninstantiated',
-  }[readyState];
-
-  return (
-    <div>
-      <button
-        onClick={handleClickChangeSocketUrl}
-      >
-        Click Me to change Socket Url
-      </button>
-      <button
-        onClick={handleClickSendMessage}
-        disabled={readyState !== ReadyState.OPEN}
-      >
-        Click Me to send 'Hello'
-      </button>
-      <span>The WebSocket is currently {connectionStatus}</span>
-      {lastMessage ? <span>Last message: {lastMessage.data}</span> : null}
-      <ul>
-        {messageHistory.current
-          .map((message, idx) => <span key={idx}>{message.data}</span>)}
-      </ul>
-    </div>
-  );
-};
+export default DeployReleaseLogRealtime;

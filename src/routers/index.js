@@ -19,7 +19,8 @@ import {
   DeployHpaConf,
   DeployGray,
   DeployServiceVersion,
-  DeployServiceVersionDetail
+  DeployServiceVersionDetail,
+  DeployReleaseLogRealtime
 } from '../views'
 
 import {
@@ -143,6 +144,15 @@ const privateRoutes = [
     pathname: '/admin/deploy/add-gray',
     component: DeployGray,
     title: '添加部署',
+    icon: RightSquareOutlined,
+    isTop: false,
+    exact: true,
+    family: 'deploy',
+  },
+  {
+    pathname: '/admin/deploy/realtime-log',
+    component: DeployReleaseLogRealtime,
+    title: '实时日志',
     icon: RightSquareOutlined,
     isTop: false,
     exact: true,
