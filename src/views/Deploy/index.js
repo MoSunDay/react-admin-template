@@ -105,7 +105,10 @@ const serviceDVcolumns = [
         <Button
           type="primary"
           size="small"
-          onClick={extra.serviceDescribeViewHandler('service-version/detail', row)}
+          onClick={extra.serviceDescribeViewHandler(
+            'service-version/detail',
+            row
+          )}
         >
           配置
         </Button>
@@ -172,16 +175,14 @@ const Deploy = ({ history }) => {
     // ],
   })
 
-  useEffect(() => {
-    const response = getServiceList()
-    response
-      .then((res) => {
-        setServiceList(res['content'])
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+  const [loading, setLoading] = useState(false)
 
+  const fetServiceList = async () => {
+    const res = await getServiceList()
+    setServiceList(res.content)
+  }
+
+  const fetchServiceDetails = async () => {
     const storage = window.localStorage
     if (storage['serviceName']) {
       form.setFields([
@@ -190,15 +191,23 @@ const Deploy = ({ history }) => {
           name: 'serviceName',
         },
       ])
-      const response = getServiceDetails(storage['serviceName'])
-      response
-        .then((res) => {
-          setServiceData(res['content'])
-        })
-        .catch((err) => {
-          console.log(err)
-        })
+      const res = await getServiceDetails(storage['serviceName'])
+      setServiceData(res['content'])
     }
+  }
+
+  const init = async () => {
+    try {
+      setLoading(true)
+      await fetServiceList()
+      await fetchServiceDetails()
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    init()
   }, [])
 
   const getServiceData = () => {
@@ -242,14 +251,10 @@ const Deploy = ({ history }) => {
 
   const reflushButton = () => {
     return (
-      <Button htmlType="button" onClick={reflush}>
+      <Button htmlType="button" onClick={init} loading={loading}>
         刷新
       </Button>
     )
-  }
-
-  const reflush = () => {
-    history.go(0);
   }
 
   return (
@@ -292,10 +297,10 @@ const Deploy = ({ history }) => {
           }
         >
           {({ getFieldValue }) => {
-            let serviceName = getFieldValue('serviceName')
             return (
               <div>
                 <Table
+                  rowKey={(record)=> record.host}
                   columns={columnProcessor(serviceDTcolumns, {
                     modify: {
                       serviceViewHandler,
@@ -307,6 +312,7 @@ const Deploy = ({ history }) => {
                 />
                 <Divider />
                 <Table
+                  rowKey={(record)=> record.name}
                   columns={columnProcessor(serviceDVcolumns, {
                     modify: {
                       serviceDescribeViewHandler,
