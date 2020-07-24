@@ -51,7 +51,10 @@ const getServiceWeight = (serviceName) => {
 
 const setServiceWeight = (serviceName, weight) => {
   let data = { content: { weight: weight } }
-  return service.post(`/api/v1/kube/service_summary/weight/${serviceName}`, data)
+  return service.post(
+    `/api/v1/kube/service_summary/weight/${serviceName}`,
+    data
+  )
 }
 
 const getServiceHpa = (serviceName) => {
@@ -69,24 +72,36 @@ const getServiceCommonConfig = (serviceName) => {
 
 const setServiceCommonConfig = (serviceName, content) => {
   let data = { content: { common: content } }
-  return service.post(`/api/v1/kube/service_summary/common/${serviceName}`, data)
+  return service.post(
+    `/api/v1/kube/service_summary/common/${serviceName}`,
+    data
+  )
 }
 
 const getServiceVersionList = (serviceName) => {
-  return service.get(`/api/v1/kube/service_deployment_set/${serviceName}/history`)
+  return service.get(
+    `/api/v1/kube/service_deployment_set/${serviceName}/history`
+  )
 }
 
 const addServiceDeployment = (serviceName, serviceVersion) => {
-  return service.post(`/api/v1/kube/service_summary/${serviceName}/deploymentset/${serviceVersion}`)
+  return service.post(
+    `/api/v1/kube/service_summary/${serviceName}/deploymentset/${serviceVersion}`
+  )
 }
 
 const getServiceVersionDetail = (serviceVersion) => {
-  return service.get(`/api/v1/kube/service_deployment_set/${serviceVersion}/detail`)
+  return service.get(
+    `/api/v1/kube/service_deployment_set/${serviceVersion}/detail`
+  )
 }
 
 const setServiceVersionDetail = (serviceVersion, content, resource) => {
   let data = { content: content }
-  return service.post(`/api/v1/kube/service_deployment_set/${serviceVersion}/${resource}`, data)
+  return service.post(
+    `/api/v1/kube/service_deployment_set/${serviceVersion}/${resource}`,
+    data
+  )
 }
 
 const getServiceVersionInstanceNumber = (serviceVersion) => {
@@ -99,29 +114,35 @@ const setServiceVersionInstanceNumber = (serviceVersion, instanceNumber) => {
 }
 
 const delServiceDeployment = (serviceName, serviceVersion) => {
-  return service.delete(`/api/v1/kube/service_summary/${serviceName}/deploymentset/${serviceVersion}`)
+  return service.delete(
+    `/api/v1/kube/service_summary/${serviceName}/deploymentset/${serviceVersion}`
+  )
 }
 
 const getServiceReleaseLogList = (serviceName) => {
-  return service.get(`/api/v1/kube/service_summary/release-log/${serviceName}`);
+  return service.get(`/api/v1/kube/service_summary/release-log/${serviceName}`)
 }
 
 const getServiceVersionStatus = (serviceVersion) => {
-  return service.get(`/api/v1/kube/service_deployment_set/${serviceVersion}/deploy/status`);
+  return service.get(
+    `/api/v1/kube/service_deployment_set/${serviceVersion}/deploy/status`
+  )
 }
 
 const submitDeploy = (serviceName, source, target) => {
   let data = {
     content: {
       source: source,
-      target: target
-    }
-  };
-  return service.post(`/api/v1/kube/deploy/slow_start/${serviceName}`, data);
+      target: target,
+    },
+  }
+  return service.post(`/api/v1/kube/deploy/slow_start/${serviceName}`, data)
 }
 
 const getServiceReleaseLogDetail = (serviceName, selectLog) => {
-  return service.get(`/api/v1/kube/service_summary/release-log/${serviceName}/${selectLog}`);
+  return service.get(
+    `/api/v1/kube/service_summary/release-log/${serviceName}/${selectLog}`
+  )
 }
 
 export {
@@ -147,5 +168,5 @@ export {
   getServiceReleaseLogList,
   getServiceVersionStatus,
   submitDeploy,
-  getServiceReleaseLogDetail
+  getServiceReleaseLogDetail,
 }

@@ -3,7 +3,7 @@ import { Card, Button } from 'antd'
 import { Select } from 'antd'
 import { getServiceVersionList, addServiceDeployment } from '../../api'
 
-const { Option } = Select;
+const { Option } = Select
 
 const layout = {
   labelCol: { span: 0 },
@@ -14,9 +14,9 @@ class DeployGray extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      serviceName: "",
+      serviceName: '',
       serviceVersionList: [],
-      serviceVersion: "",
+      serviceVersion: '',
     }
   }
 
@@ -25,14 +25,16 @@ class DeployGray extends Component {
     const response = getServiceVersionList(service)
     response
       .then((res) => {
-        this.setState({serviceName: service, serviceVersionList: res["content"]});
-        console.log(this.state.serviceVersionList);
+        this.setState({
+          serviceName: service,
+          serviceVersionList: res['content'],
+        })
+        console.log(this.state.serviceVersionList)
       })
       .catch((err) => {
         console.log(err)
-      });
+      })
   }
- 
 
   goBack = () => {
     return (
@@ -43,31 +45,34 @@ class DeployGray extends Component {
   }
 
   onChange = (value) => {
-    console.log(`selected ${value}`);
-    this.setState({serviceVersion: value});
+    console.log(`selected ${value}`)
+    this.setState({ serviceVersion: value })
   }
 
   onBlur = () => {
-    console.log('blur');
+    console.log('blur')
   }
 
   onFocus = () => {
-    console.log('focus');
+    console.log('focus')
   }
 
   onSearch = (val) => {
-    console.log('search:', val);
+    console.log('search:', val)
   }
 
   onSubmit = () => {
-    const response = addServiceDeployment(this.state.serviceName, this.state.serviceVersion)
+    const response = addServiceDeployment(
+      this.state.serviceName,
+      this.state.serviceVersion
+    )
     response
       .then((res) => {
-        this.props.history.goBack();
+        this.props.history.goBack()
       })
       .catch((err) => {
         console.log(err)
-      });
+      })
   }
 
   render() {
@@ -88,12 +93,15 @@ class DeployGray extends Component {
               option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
             }
           >
-            {this.state.serviceVersionList.map(item => {
+            {this.state.serviceVersionList.map((item) => {
               return <Option value={item}>{item}</Option>
             })}
-
           </Select>
-          <Button type="primary" onClick={this.onSubmit} style={{ marginLeft: '15px'}}>
+          <Button
+            type="primary"
+            onClick={this.onSubmit}
+            style={{ marginLeft: '15px' }}
+          >
             添加
           </Button>
         </Card>

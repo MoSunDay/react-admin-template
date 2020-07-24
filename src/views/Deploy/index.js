@@ -155,10 +155,12 @@ const Deploy = ({ history }) => {
   const [form] = Form.useForm()
   const [serviceList, setServiceList] = useState([])
   const [serviceData, setServiceData] = useState({
-    service: [{
-      host: "null",
-      name: ""
-    }],
+    service: [
+      {
+        host: 'null',
+        name: '',
+      },
+    ],
     versions: [],
   })
 
@@ -287,7 +289,7 @@ const Deploy = ({ history }) => {
             return (
               <div>
                 <Table
-                  rowKey={(record)=> record.host}
+                  rowKey={(record) => record.host}
                   columns={columnProcessor(serviceDTcolumns, {
                     modify: {
                       serviceViewHandler,
@@ -299,7 +301,7 @@ const Deploy = ({ history }) => {
                 />
                 <Divider />
                 <Table
-                  rowKey={(record)=> record.name}
+                  rowKey={(record) => record.name}
                   columns={columnProcessor(serviceDVcolumns, {
                     modify: {
                       serviceDescribeViewHandler,

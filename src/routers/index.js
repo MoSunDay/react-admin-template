@@ -20,7 +20,7 @@ import {
   DeployGray,
   DeployServiceVersion,
   DeployServiceVersionDetail,
-  DeployReleaseLogRealtime
+  DeployReleaseLogRealtime,
 } from '../views'
 
 import {

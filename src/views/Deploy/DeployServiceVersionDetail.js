@@ -8,13 +8,12 @@ const layout = {
   wrapperCol: { offset: 0, span: 8 },
 }
 
-
 class DeployServiceVersionDetail extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      content: "",
-      serviceVersion: "",
+      content: '',
+      serviceVersion: '',
     }
   }
 
@@ -23,29 +22,36 @@ class DeployServiceVersionDetail extends Component {
     const response = getServiceVersionDetail(serviceVersion)
     response
       .then((res) => {
-        this.setState({content: res["content"]["config"]["deployment"], serviceVersion: serviceVersion});
+        this.setState({
+          content: res['content']['config']['deployment'],
+          serviceVersion: serviceVersion,
+        })
       })
       .catch((err) => {
         console.log(err)
-      });
+      })
   }
 
   onChange = (event) => {
     this.setState({
-      content: event.target.value
+      content: event.target.value,
     })
   }
 
   onSubmit = () => {
-    const response = setServiceVersionDetail(this.state.serviceVersion, this.state.content, "deployment")
+    const response = setServiceVersionDetail(
+      this.state.serviceVersion,
+      this.state.content,
+      'deployment'
+    )
     response
       .then((res) => {
-        console.log("common submit")
-        this.props.history.goBack();
+        console.log('common submit')
+        this.props.history.goBack()
       })
       .catch((err) => {
         console.log(err)
-      });
+      })
   }
 
   goBack = () => {
@@ -60,10 +66,19 @@ class DeployServiceVersionDetail extends Component {
     return (
       <div>
         <Card title="版本详情" extra={this.goBack()}>
-            <Input.TextArea {...layout} autoSize={true} value={this.state.content} onChange={this.onChange} />
-            <Button type="primary" onClick={this.onSubmit} style={{ marginTop: '15px'}}>
-              确认修改
-            </Button>
+          <Input.TextArea
+            {...layout}
+            autoSize={true}
+            value={this.state.content}
+            onChange={this.onChange}
+          />
+          <Button
+            type="primary"
+            onClick={this.onSubmit}
+            style={{ marginTop: '15px' }}
+          >
+            确认修改
+          </Button>
         </Card>
       </div>
     )

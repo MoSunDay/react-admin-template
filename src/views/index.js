@@ -145,5 +145,5 @@ export {
   DeployServiceVersion,
   DeployServiceVersionDetail,
   DeployReleaseLogView,
-  DeployReleaseLogRealtime
+  DeployReleaseLogRealtime,
 }

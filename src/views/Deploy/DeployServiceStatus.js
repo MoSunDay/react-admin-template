@@ -11,22 +11,25 @@ class DeployServiceStatus extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      serviceVersion: "",
-      status: {}
+      serviceVersion: '',
+      status: {},
     }
   }
 
   componentDidMount() {
-    let { serviceVersion } = this.props.location.state;
-    const response = getServiceVersionStatus(serviceVersion);
+    let { serviceVersion } = this.props.location.state
+    const response = getServiceVersionStatus(serviceVersion)
     response
       .then((res) => {
-        console.log(`!@132321 ${res["content"]} `)
-        this.setState({serviceVersion: serviceVersion, status: res["content"]});
+        console.log(`!@132321 ${res['content']} `)
+        this.setState({
+          serviceVersion: serviceVersion,
+          status: res['content'],
+        })
       })
       .catch((err) => {
         console.log(err)
-      });
+      })
   }
 
   goBack = () => {
@@ -38,20 +41,20 @@ class DeployServiceStatus extends Component {
   }
 
   render() {
-    const {status} = this.state;
+    const { status } = this.state
     return (
       <div>
         <Card title="服务状态" extra={this.goBack()}>
-            {
-                Object.keys(status).map(key => {
-                return <div>
-                        <Card title={key}>
-                        <pre>{status[key]}</pre>
-                        </Card>
-                        <br/>
-                    </div>
-                })
-            }
+          {Object.keys(status).map((key) => {
+            return (
+              <div>
+                <Card title={key}>
+                  <pre>{status[key]}</pre>
+                </Card>
+                <br />
+              </div>
+            )
+          })}
         </Card>
       </div>
     )

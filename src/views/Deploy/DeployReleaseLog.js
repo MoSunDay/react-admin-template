@@ -8,7 +8,7 @@ class DeployReleaseLog extends Component {
     super(props)
     this.state = {
       logList: [],
-      service: ""
+      service: '',
     }
   }
 
@@ -17,13 +17,13 @@ class DeployReleaseLog extends Component {
     const response = getServiceReleaseLogList(service)
     response
       .then((res) => {
-        this.setState({logList: res["content"], service: service});
+        this.setState({ logList: res['content'], service: service })
       })
       .catch((err) => {
         console.log(err)
-      });
+      })
   }
- 
+
   goBack = () => {
     return (
       <Button htmlType="button" onClick={this.props.history.goBack}>
@@ -35,7 +35,7 @@ class DeployReleaseLog extends Component {
   selectVersion = (selectLog) => {
     this.props.history.push({
       pathname: `/admin/deploy/release-log/view`,
-      state: {selectLog: selectLog, service: this.state.service},
+      state: { selectLog: selectLog, service: this.state.service },
     })
   }
 
@@ -47,7 +47,7 @@ class DeployReleaseLog extends Component {
             bordered
             dataSource={this.state.logList}
             renderItem={(item) => (
-              <List.Item onClick={()=>this.selectVersion(item)}>
+              <List.Item onClick={() => this.selectVersion(item)}>
                 <List.Item.Meta
                   title={<a href="javascript:void(0);">{item}</a>}
                 />

@@ -30,16 +30,19 @@ class DeployRemoveAlertWindows extends Component {
         visible: false,
         confirmLoading: false,
       })
-      let { serviceVersion } = this.state;
-      let serviceName = serviceVersion.split(":")[0];
-      const response = delServiceDeployment(serviceName, serviceVersion);
+      let { serviceVersion } = this.state
+      let serviceName = serviceVersion.split(':')[0]
+      const response = delServiceDeployment(serviceName, serviceVersion)
       response
         .then((res) => {
-          this.setState({content: res["content"]["config"]["hpa"], serviceVersion: serviceVersion});
+          this.setState({
+            content: res['content']['config']['hpa'],
+            serviceVersion: serviceVersion,
+          })
         })
         .catch((err) => {
           console.log(err)
-        });
+        })
     }, 2000)
   }
 

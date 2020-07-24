@@ -8,13 +8,12 @@ const layout = {
   wrapperCol: { offset: 0, span: 8 },
 }
 
-
 class DeployCommonConf extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      content: "",
-      serviceName: "",
+      content: '',
+      serviceName: '',
     }
   }
 
@@ -23,29 +22,32 @@ class DeployCommonConf extends Component {
     const response = getServiceCommonConfig(service)
     response
       .then((res) => {
-        this.setState({content: res["content"], serviceName: service});
+        this.setState({ content: res['content'], serviceName: service })
       })
       .catch((err) => {
         console.log(err)
-      });
+      })
   }
 
   onChange = (event) => {
     this.setState({
-      content: event.target.value
+      content: event.target.value,
     })
   }
 
   onSubmit = () => {
-    const response = setServiceCommonConfig(this.state.serviceName, this.state.content)
+    const response = setServiceCommonConfig(
+      this.state.serviceName,
+      this.state.content
+    )
     response
       .then((res) => {
-        console.log("common submit")
-        this.props.history.goBack();
+        console.log('common submit')
+        this.props.history.goBack()
       })
       .catch((err) => {
         console.log(err)
-      });
+      })
   }
 
   goBack = () => {
@@ -60,10 +62,19 @@ class DeployCommonConf extends Component {
     return (
       <div>
         <Card title="公共配置" extra={this.goBack()}>
-            <Input.TextArea {...layout} autoSize={true} value={this.state.content} onChange={this.onChange} />
-            <Button type="primary" onClick={this.onSubmit} style={{ marginTop: '15px'}}>
-              提交
-            </Button>
+          <Input.TextArea
+            {...layout}
+            autoSize={true}
+            value={this.state.content}
+            onChange={this.onChange}
+          />
+          <Button
+            type="primary"
+            onClick={this.onSubmit}
+            style={{ marginTop: '15px' }}
+          >
+            提交
+          </Button>
         </Card>
       </div>
     )

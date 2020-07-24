@@ -3,7 +3,6 @@ import { Card, Button } from 'antd'
 import { List } from 'antd'
 import { getServiceVersionList } from '../../api'
 
-
 class DeployServiceVersion extends Component {
   constructor(props) {
     super(props)
@@ -17,13 +16,13 @@ class DeployServiceVersion extends Component {
     const response = getServiceVersionList(service)
     response
       .then((res) => {
-        this.setState({serviceVersionList: res["content"]});
+        this.setState({ serviceVersionList: res['content'] })
       })
       .catch((err) => {
         console.log(err)
-      });
+      })
   }
- 
+
   goBack = () => {
     return (
       <Button htmlType="button" onClick={this.props.history.goBack}>
@@ -47,7 +46,7 @@ class DeployServiceVersion extends Component {
             bordered
             dataSource={this.state.serviceVersionList}
             renderItem={(item) => (
-              <List.Item onClick={()=>this.selectVersion(item)}>
+              <List.Item onClick={() => this.selectVersion(item)}>
                 <List.Item.Meta
                   title={<a href="javascript:void(0);">{item}</a>}
                 />
