@@ -155,24 +155,11 @@ const Deploy = ({ history }) => {
   const [form] = Form.useForm()
   const [serviceList, setServiceList] = useState([])
   const [serviceData, setServiceData] = useState({
-    // service: [{
-    //   host: "sre.mobiu.space",
-    //   name: "prod-em-feed-server"
-    // }],
-    // versions: [
-    //   {
-    //     name: "em-feed-server:1",
-    //     weight: 50,
-    //     status: "running",
-    //     create_time: "2020-02-02 20:20:20",
-    //   },
-    //   {
-    //     name: "em-feed-server:2",
-    //     weight: 50,
-    //     status: "running",
-    //     create_time: "2020-02-02 20:20:20",
-    //   },
-    // ],
+    service: [{
+      host: "null",
+      name: ""
+    }],
+    versions: [],
   })
 
   const [loading, setLoading] = useState(false)

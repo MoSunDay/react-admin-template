@@ -3,6 +3,7 @@ import React from 'react'
 import { Card, Button, List } from 'antd'
 import { useSize } from 'ahooks'
 import webSocket from 'socket.io-client'
+import { baseURL } from '../../utils'
 
 const { useState, useEffect, useRef } = React
 
@@ -31,7 +32,7 @@ const DeployReleaseLogRealtime = (props) => {
     },[ws])
 
     useEffect(() => {
-        setWs(webSocket('http://127.0.0.1:5000/'))
+        setWs(webSocket(baseURL))
     }, [])
 
     useEffect(() => {
