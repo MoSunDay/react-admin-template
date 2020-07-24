@@ -56,8 +56,20 @@ class DeployRelease extends Component {
   }
 
   selectVersionChange = (value) => {
-    console.log(`selected ${value}`)
-    this.setState({ target: value })
+    this.setState({ serviceVersion: value })
+  }
+
+  compilerChange = (value) => {
+    this.setState({ compiler: value })
+  }
+
+  skipChange = (value) => {
+    this.setState({ skip: value })
+  }
+
+  branchChange = (value) => {
+    console.log(value)
+    this.setState({ branch: value })
   }
 
   onSubmit = () => {
@@ -83,7 +95,7 @@ class DeployRelease extends Component {
           <h4>已选中: {this.state.source}</h4>
           <Divider></Divider>
           <Form {...layout} name="deploy">
-            <Form.Item name="版本信息" label="版本信息">
+            <Form.Item label="版本信息">
               <Select
                 showSearch
                 {...layout}
@@ -91,7 +103,7 @@ class DeployRelease extends Component {
                 placeholder={defaultVersion}
                 optionFilterProp="children"
                 onChange={this.selectVersionChange}
-                defaultValue={defaultVersion}
+                value={defaultVersion}
                 filterOption={(input, option) =>
                   option.children.toLowerCase().indexOf(input.toLowerCase()) >=
                   0
@@ -103,15 +115,14 @@ class DeployRelease extends Component {
               </Select>
             </Form.Item>
 
-            <Form.Item name="发布类型" label="发布类型">
+            <Form.Item label="发布类型">
               <Select
                 showSearch
                 {...layout}
                 style={{ width: 300 }}
-                placeholder="发布类型"
                 optionFilterProp="children"
                 onChange={this.selectVersionChange}
-                placeholder={this.state.deployType}
+                value={this.state.deployType}
                 filterOption={(input, option) =>
                   option.children.toLowerCase().indexOf(input.toLowerCase()) >=
                   0
@@ -123,15 +134,14 @@ class DeployRelease extends Component {
               </Select>
             </Form.Item>
 
-            <Form.Item name="构建类型" label="构建类型">
+            <Form.Item label="构建类型">
               <Select
                 showSearch
                 {...layout}
                 style={{ width: 300 }}
-                placeholder="构建类型"
                 optionFilterProp="children"
-                onChange={this.selectVersionChange}
-                placeholder={this.state.compiler}
+                onChange={this.compilerChange}
+                value={this.state.compiler}
                 filterOption={(input, option) =>
                   option.children.toLowerCase().indexOf(input.toLowerCase()) >=
                   0
@@ -143,15 +153,14 @@ class DeployRelease extends Component {
               </Select>
             </Form.Item>
 
-            <Form.Item name="跳过编译" label="跳过编译">
+            <Form.Item label="跳过编译">
               <Select
                 showSearch
                 {...layout}
                 style={{ width: 300 }}
-                placeholder="跳过编译"
                 optionFilterProp="children"
-                onChange={this.selectVersionChange}
-                placeholder={this.state.skip}
+                onChange={this.skipChange}
+                value={this.state.skip}
                 filterOption={(input, option) =>
                   option.children.toLowerCase().indexOf(input.toLowerCase()) >=
                   0
@@ -163,12 +172,12 @@ class DeployRelease extends Component {
               </Select>
             </Form.Item>
 
-            <Form.Item name="代码分支" label="代码分支">
-              <Col span={8}>
+            <Form.Item label="代码分支">
+              <Col span={5}>
                 <Input
                   size="middle"
-                  placeholder={this.state.branch}
                   maxLength="100"
+                  value={this.state.branch}
                 />
               </Col>
             </Form.Item>
