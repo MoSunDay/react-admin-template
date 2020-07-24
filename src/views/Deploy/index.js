@@ -71,11 +71,6 @@ const serviceDTcolumns = [
         <Button
           type="primary"
           size="small"
-          onClick={extra.serviceViewHandler('service-weight', row)}
-        ></Button>
-        <Button
-          type="primary"
-          size="small"
           onClick={extra.serviceViewHandler('realtime-log', row)}
         >
           实时日志
