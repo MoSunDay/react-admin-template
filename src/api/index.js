@@ -50,7 +50,7 @@ const getServiceWeight = (serviceName) => {
 }
 
 const setServiceWeight = (serviceName, weight) => {
-  let data = { content: { weight: weight } }
+  let data = { content: weight}
   return service.post(
     `/api/v1/kube/service_summary/weight/${serviceName}`,
     data
