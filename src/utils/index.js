@@ -11,7 +11,7 @@ const mapFiledToChinese = {
 }
 
 const isDev = process.env.NODE_ENV === 'development'
-const baseURL = isDev ? 'http://10.64.12.238:5000' : 'http://127.0.0.1:5000'
+const baseURL = isDev ? 'http://10.64.12.238:5000' : 'http://127.0.0.1:8081'
 
 const getQueryVariable = (variable) => {
   let query = window.location.search.substring(1)
